@@ -262,38 +262,35 @@ body {
     color: #fff;
 }
 
-/* Image Card Styles */
-.image-card {
-    background-color: rgba(255, 255, 255, 0.1);
-    border-radius: 15px;
-    overflow: hidden; /* Ensures image corners are rounded */
-    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-    margin-bottom: 20px;
+.gallery {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  gap: 20px;
+  padding-bottom: 20px;
 }
 
-.content-image {
-    width: 100%;
-    height: auto;
-    display: block;
-    border-top-left-radius: 15px;
-    border-top-right-radius: 15px;
+.gallery-item {
+  flex: 0 0 80%;
+  scroll-snap-align: start;
+  background: rgba(255,255,255,0.1);
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
 }
 
-.image-info {
-    padding: 20px;
-    text-align: left;
-    color: #fff;
+.gallery-item img {
+  width: 100%;
+  display: block;
 }
 
-.image-info h3 {
-    margin-top: 0;
-    font-size: 1.5em;
-    margin-bottom: 10px;
+.gallery::-webkit-scrollbar {
+  height: 8px;
 }
 
-.image-info p {
-    font-size: 1em;
-    margin: 0;
+.gallery::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.3);
+  border-radius: 4px;
 }
 
 /* Music List Styles */
