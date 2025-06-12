@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recap Our Time</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="container recap-container">
+        <h1 class="recap-heading" id="recapHeading">Let's recap our time together</h1>
+
+        <div class="content-selection-buttons" id="mainRecapButtons">
+            <div class="icon-button" data-content="september-pic">
+                <i class="fas fa-comment-dots"></i>
+                <p>Click me!</p>
+            </div>
+            <div class="icon-button" data-content="january-pic">
+                <i class="fas fa-image"></i>
+                <p>Click me!</p>
+            </div>
+            <div class="icon-button" data-content="music-list">
+                <i class="fas fa-music"></i>
+                <p>Click me!</p>
+            </div>
+        </div>
+
+        <div id="septemberPicSection" class="content-display-section hidden">
+            <h2 class="content-title">Best Pics!!</h2>
+            <div class="image-card">
+                <img src="c:\Users\Chaud\OneDrive\Desktop\All webpage\maitriPic\pic9u.jpg" alt="Rashmika Mandanna" class="content-image">
+                <div class="image-info">
+                    <h3>September 3, 2024</h3>
+                    <p>A beautiful day to remember.</p>
+                </div>
+            </div>
+            <button class="nav-button back-to-recap-button">&larr; Back</button>
+        </div>
+
+        <div id="januaryPicSection" class="content-display-section hidden">
+            <h2 class="content-title">Our Pictures</h2>
+            <div class="image-card">
+                <img src="c:\Users\Chaud\OneDrive\Desktop\All webpage\maitriPic\pic7 heavy.jpg" alt="New Year Celebration" class="content-image">
+                <div class="image-info">
+                    <h3>January 1, 2024</h3>
+                    <p>New Year's Celebration 🎉🥳</p>
+                </div>
+            </div>
+            <button class="nav-button back-to-recap-button">&larr; Back</button>
+        </div>
+
+        <div id="musicListSection" class="content-display-section hidden">
+            <h2 class="content-title">Our Favorite Songs</h2>
+            <div class="music-list">
+                <div class="music-item">
+                    <img src="images/heavenly_album.jpg" alt="Album Cover" class="album-cover">
+                    <div class="song-details">
+                        <p class="song-title">Heavenly</p>
+                        <p class="song-artist">Cigarettes After Sex</p>
+                    </div>
+                </div>
+                <div class="music-item">
+                    <img src="images/theboyismine_album.jpg" alt="Album Cover" class="album-cover">
+                    <div class="song-details">
+                        <p class="song-title">The Boy Is Mine</p>
+                        <p class="song-artist">Brandy, Monica</p>
+                    </div>
+                </div>
+                <div class="music-item">
+                    <img src="images/sunsetz_album.jpg" alt="Album Cover" class="album-cover">
+                    <div class="song-details">
+                        <p class="song-title">Sunsetz</p>
+                        <p class="song-artist">Cigarettes After Sex</p>
+                    </div>
+                </div>
+                <div class="music-item">
+                    <img src="images/diewithasmile_album.jpg" alt="Album Cover" class="album-cover">
+                    <div class="song-details">
+                        <p class="song-title">Die With A Smile</p>
+                        <p class="song-artist">Lady Gaga, Bruno Mars</p>
+                    </div>
+                </div>
+                <div class="music-item">
+                    <img src="images/kissthroughme_album.jpg" alt="Album Cover" class="album-cover">
+                    <div class="song-details">
+                        <p class="song-title">Kiss Me Thru The Phone</p>
+                        <p class="song-artist">Soulja Boy, Sammie</p>
+                    </div>
+                </div>
+                <div class="music-item">
+                    <img src="images/americanboy_album.jpg" alt="Album Cover" class="album-cover">
+                    <div class="song-details">
+                        <p class="song-title">American Boy</p>
+                        <p class="song-artist">Estelle, Kanye West</p>
+                    </div>
+                </div>
+                <div class="music-item">
+                    <img src="images/lastonearth_album.jpg" alt="Album Cover" class="album-cover">
+                    <div class="song-details">
+                        <p class="song-title">Last Night on Earth</p>
+                        <p class="song-artist">Green Day</p>
+                    </div>
+                </div>
+                <div class="music-item">
+                    <img src="images/sparks_album.jpg" alt="Album Cover" class="album-cover">
+                    <div class="song-details">
+                        <p class="song-title">Sparks</p>
+                        <p class="song-artist">Coldplay</p>
+                    </div>
+                </div>
+            </div>
+            <button class="nav-button back-to-recap-button">&larr; Back</button>
+        </div>
+
+
+        <div class="nav-buttons main-nav-recap" id="recapNavButtons">
+            <button class="nav-button" onclick="navigateTo('countdown.html')">
+                &larr; Previous page
+            </button>
+            <button class="nav-button" onclick="navigateTo('message.html')">
+                Next page &rarr;
+            </button>
+        </div>
+
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

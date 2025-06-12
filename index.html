@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enter Passcode</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container passcode-container">
+        <h1 class="passcode-heading">Enter Passcode</h1>
+        <div class="passcode-dots" id="passcodeDots">
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+        </div>
+        <p class="passcode-message" id="passcodeMessage"></p>
+        <div class="numpad">
+            <button class="num-button" data-value="1">1</button>
+            <button class="num-button" data-value="2">2</button>
+            <button class="num-button" data-value="3">3</button>
+            <button class="num-button" data-value="4">4</button>
+            <button class="num-button" data-value="5">5</button>
+            <button class="num-button" data-value="6">6</button>
+            <button class="num-button" data-value="7">7</button>
+            <button class="num-button" data-value="8">8</button>
+            <button class="num-button" data-value="9">9</button>
+            <div class="empty-cell"></div>
+            <button class="num-button" data-value="0">0</button>
+            <button class="num-button cancel-button" data-value="cancel">Cancel</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

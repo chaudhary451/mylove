@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Message</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container message-container">
+        <div class="message-box">
+            <span class="close-message-btn" onclick="navigateTo('recap.html')">&times;</span>
+            <p>Hi, I love you so much <span class="heart-emoji">💖</span></p>
+        </div>
+
+        <div class="nav-buttons message-nav">
+            <button class="nav-button" onclick="navigateTo('recap.html')">
+                &larr; Previous page
+            </button>
+            <button class="nav-button" onclick="navigateTo('thankyou.html')">
+                Next page &rarr;
+            </button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
