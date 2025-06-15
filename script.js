@@ -9,7 +9,7 @@ function navigateTo(pageUrl) {
 // Logic for index.html (Passcode Page)
 // ===========================================
 if (window.location.pathname.endsWith('index.html') || window.location.pathname === '/') { // Handles '/' for root
-    const correctPasscode = "4669"; // Aapka passcode
+    const correctPasscode = "1234"; // Aapka passcode
     let enteredPasscode = "";
     const passcodeDots = document.getElementById('passcodeDots');
     const passcodeMessage = document.getElementById('passcodeMessage');
@@ -117,8 +117,7 @@ if (window.location.pathname.endsWith('recap.html')) {
     const januaryPicSection = document.getElementById('januaryPicSection');
     const musicListSection = document.getElementById('musicListSection');
     const recapHeading = document.getElementById('recapHeading');
-
-    const backButtons = document.querySelectorAll('.back-to-recap-button'); // Select all back buttons
+    const backButtons = document.querySelectorAll('.back-to-recap-button');
 
     document.querySelectorAll('.icon-button').forEach(button => {
         button.addEventListener('click', () => {
@@ -128,7 +127,7 @@ if (window.location.pathname.endsWith('recap.html')) {
             septemberPicSection.classList.add('hidden');
             januaryPicSection.classList.add('hidden');
             musicListSection.classList.add('hidden');
-            mainRecapButtons.classList.add('hidden'); // Hide main selection buttons
+            mainRecapButtons.classList.add('hidden');
 
             if (contentType === 'september-pic') {
                 septemberPicSection.classList.remove('hidden');
@@ -143,7 +142,6 @@ if (window.location.pathname.endsWith('recap.html')) {
         });
     });
 
-    // Add event listener for all back buttons
     backButtons.forEach(button => {
         button.addEventListener('click', () => {
             showMainRecapPage();
@@ -154,13 +152,45 @@ if (window.location.pathname.endsWith('recap.html')) {
         septemberPicSection.classList.add('hidden');
         januaryPicSection.classList.add('hidden');
         musicListSection.classList.add('hidden');
-        mainRecapButtons.classList.remove('hidden'); // Show main selection buttons
-        recapHeading.textContent = "Let's recap our time together"; // Reset heading
+        mainRecapButtons.classList.remove('hidden');
+        recapHeading.textContent = "Let's recap our time together";
     }
+
+    // Music item bounce + double click
+    const musicItems = document.querySelectorAll('.music-item');
+
+    musicItems.forEach(item => {
+        let clickTimeout = null;
+
+        item.addEventListener('click', () => {
+            item.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            item.classList.add('bounce');
+            setTimeout(() => item.classList.remove('bounce'), 300);
+
+            if (clickTimeout === null) {
+                clickTimeout = setTimeout(() => {
+                    clickTimeout = null;
+                }, 300);
+            } else {
+                clearTimeout(clickTimeout);
+                clickTimeout = null;
+                const url = item.dataset.url;
+                if (url) window.open(url, '_blank');
+            }
+        });
+
+        item.addEventListener('dblclick', () => {
+            const youtubeLink = item.dataset.url;
+            if (youtubeLink) {
+                window.open(youtubeLink, '_blank');
+            }
+        });
+    });
 }
 
 // ===========================================
 // Logic for message.html and thankyou.html (no specific JS needed other than navigateTo)
+
 // ===========================================
 // The MapsTo function is global, so it works for all pages.
 // No page-specific JS needed for message.html or thankyou.html unless you add more interactive elements.
