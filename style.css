@@ -5,7 +5,8 @@
 /* ========================================================================= */
 body {
     font-family: 'Poppins', sans-serif;
-    background: linear-gradient(135deg, #de7d80 0%, #c550a0 100%); /* Example gradient */
+    background:url(../Pic/bg.jpg);
+    background-size: cover; /* Example gradient */
     color: #fff;
     margin: 0;
     display: flex;
@@ -21,8 +22,8 @@ body {
     padding: 30px;
     border-radius: 20px;
     box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
     border: 1px solid rgba(255, 255, 255, 0.18);
     max-width: 90%;
     width: 400px; /* Default width */
@@ -337,6 +338,15 @@ body {
     margin: 5px 0 0;
     font-size: 0.9em;
     color: rgba(255, 255, 255, 0.7);
+}
+@keyframes bounce {
+  from { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+.bounce {
+  animation: bounce 0.3s ease-in-out;
 }
 
 .back-to-recap-button {
