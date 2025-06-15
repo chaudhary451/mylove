@@ -9,8 +9,12 @@
 </head>
 <body>
     <div class="container message-container">
-        <div class="message-box">
-            <span class="close-message-btn" onclick="navigateTo('recap.html')">&times;</span>
+               <!-- Envelope image -->
+        <img src="c:\Users\Chaud\OneDrive\Desktop\All webpage\music\3.png" alt="Envelope" class="envelope-img" onclick=" showMessage()">
+
+        <!-- Hidden message box -->
+        <div class="message-box" id="loveMessage" style="display: none;">
+            <span class="close-message-btn" onclick="hideMessage()">&times;</span>
             <p>Hi, I love you so much <span class="heart-emoji">💖</span></p>
         </div>
 
