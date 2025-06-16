@@ -9,7 +9,7 @@ function navigateTo(pageUrl) {
 // Logic for index.html (Passcode Page)
 // ===========================================
 if (window.location.pathname.endsWith('index.html') || window.location.pathname === '/') { // Handles '/' for root
-    const correctPasscode = "1234"; // Aapka passcode
+    const correctPasscode = "4669"; // Aapka passcode
     let enteredPasscode = "";
     const passcodeDots = document.getElementById('passcodeDots');
     const passcodeMessage = document.getElementById('passcodeMessage');
