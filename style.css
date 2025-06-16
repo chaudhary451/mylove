@@ -134,8 +134,8 @@ body {
 .num-button.cancel-button {
     background-color: rgba(255, 99, 71, 0.4); /* Tomato color */
     font-size: 1.2em;
-    grid-column: span 2; /* Spans two columns */
-    border-radius: 25px; /* Rounded rectangle */
+    grid-column: span 1; /* Spans two columns */
+    border-radius: 80px; /* Rounded rectangle */
 }
 
 .num-button.cancel-button:hover {
