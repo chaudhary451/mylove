@@ -1,196 +1,355 @@
-// script.js
+// =============================================================
+//  script.js — Premium Romantic Website Logic
+//  Pink Glassmorphism Love Theme
+// =============================================================
 
-// Function to navigate to different pages
+// ─── GLOBAL: Page navigation ──────────────────────────────────
 function navigateTo(pageUrl) {
+  // Smooth fade-out before navigation
+  document.body.style.transition = 'opacity 0.35s ease';
+  document.body.style.opacity = '0';
+  setTimeout(() => {
     window.location.href = pageUrl;
+  }, 320);
 }
 
-// ===========================================
-// Logic for index.html (Passcode Page)
-// ===========================================
-if (window.location.pathname.endsWith('index.html') || window.location.pathname === '/') { // Handles '/' for root
-    const correctPasscode = "4669"; // Aapka passcode
-    let enteredPasscode = "";
-    const passcodeDots = document.getElementById('passcodeDots');
-    const passcodeMessage = document.getElementById('passcodeMessage');
+// Fade in on page load
+document.addEventListener('DOMContentLoaded', () => {
+  document.body.style.opacity = '0';
+  requestAnimationFrame(() => {
+    document.body.style.transition = 'opacity 0.5s ease';
+    document.body.style.opacity = '1';
+  });
+});
 
-    document.querySelectorAll('.num-button').forEach(button => {
-        button.addEventListener('click', () => {
-            const value = button.dataset.value;
+// =============================================================
+//  index.html — PASSCODE PAGE
+// =============================================================
+if (
+  window.location.pathname.endsWith('index.html') ||
+  window.location.pathname === '/' ||
+  window.location.pathname === ''
+) {
+  const correctPasscode = '4669';
+  let enteredPasscode = '';
 
-            if (value === "cancel") {
-                enteredPasscode = "";
-                updatePasscodeDots();
-                passcodeMessage.textContent = "";
-                passcodeMessage.classList.remove('visible', 'error');
-            } else if (enteredPasscode.length < 4) {
-                enteredPasscode += value;
-                updatePasscodeDots();
+  const passcodeDots = document.getElementById('passcodeDots');
+  const passcodeMessage = document.getElementById('passcodeMessage');
 
-                if (enteredPasscode.length === 4) {
-                    if (enteredPasscode === correctPasscode) {
-                        passcodeMessage.textContent = "Yayy! :)";
-                        passcodeMessage.classList.remove('error');
-                        passcodeMessage.classList.add('visible');
-                        // Navigate to Google Search Mock page after a short delay
-                        setTimeout(() => {
-                            navigateTo('countdown.html');
-                        }, 1000); // 1 second delay
-                    } else {
-                        passcodeMessage.textContent = "Incorrect Passcode!";
-                        passcodeMessage.classList.add('error', 'visible');
-                        setTimeout(() => {
-                            enteredPasscode = "";
-                            updatePasscodeDots();
-                            passcodeMessage.classList.remove('visible', 'error');
-                        }, 1500); // Show error for 1.5 seconds
-                    }
-                }
-            }
-        });
+  // Attach listeners to all numpad buttons
+  document.querySelectorAll('.num-button').forEach(button => {
+    button.addEventListener('click', () => {
+      const value = button.dataset.value;
+
+      if (value === 'cancel') {
+        clearPasscode();
+        return;
+      }
+
+      if (enteredPasscode.length >= 4) return;
+
+      enteredPasscode += value;
+      updatePasscodeDots();
+
+      // Ripple effect on button press
+      createRipple(button);
+
+      if (enteredPasscode.length === 4) {
+        evaluatePasscode();
+      }
     });
 
-    function updatePasscodeDots() {
-        const dots = passcodeDots.querySelectorAll('.dot');
-        dots.forEach((dot, index) => {
-            if (index < enteredPasscode.length) {
-                dot.classList.add('filled');
-            } else {
-                dot.classList.remove('filled');
-            }
-        });
-    }
+    // Keyboard support — allow typing digits
+  });
 
-    // Initial update for dots on page load
+  // Physical keyboard support
+  document.addEventListener('keydown', e => {
+    if (/^[0-9]$/.test(e.key) && enteredPasscode.length < 4) {
+      enteredPasscode += e.key;
+      updatePasscodeDots();
+      if (enteredPasscode.length === 4) evaluatePasscode();
+    } else if (e.key === 'Backspace' || e.key === 'Escape') {
+      clearPasscode();
+    }
+  });
+
+  function evaluatePasscode() {
+    if (enteredPasscode === correctPasscode) {
+      // ✅ Correct
+      showMessage('Yayy! Welcome 💗', false);
+      // Glow the dots pink
+      passcodeDots.querySelectorAll('.dot').forEach(dot => {
+        dot.style.boxShadow = '0 0 20px rgba(255,79,163,0.9), 0 0 40px rgba(255,79,163,0.4)';
+      });
+      setTimeout(() => navigateTo('countdown.html'), 1100);
+    } else {
+      // ❌ Wrong
+      showMessage('Incorrect Passcode ✕', true);
+      // Shake the dots
+      passcodeDots.style.animation = 'none';
+      requestAnimationFrame(() => {
+        passcodeDots.style.animation = 'shake 0.4s cubic-bezier(0.36,0.07,0.19,0.97)';
+      });
+      setTimeout(() => {
+        clearPasscode();
+        passcodeDots.style.animation = '';
+      }, 1500);
+    }
+  }
+
+  function clearPasscode() {
+    enteredPasscode = '';
     updatePasscodeDots();
+    passcodeMessage.textContent = '';
+    passcodeMessage.classList.remove('visible', 'error');
+  }
+
+  function showMessage(text, isError) {
+    passcodeMessage.textContent = text;
+    passcodeMessage.classList.remove('visible', 'error');
+    // Force reflow
+    void passcodeMessage.offsetWidth;
+    passcodeMessage.classList.add('visible');
+    if (isError) passcodeMessage.classList.add('error');
+  }
+
+  function updatePasscodeDots() {
+    const dots = passcodeDots.querySelectorAll('.dot');
+    dots.forEach((dot, index) => {
+      if (index < enteredPasscode.length) {
+        dot.classList.add('filled');
+      } else {
+        dot.classList.remove('filled');
+        dot.style.boxShadow = '';
+      }
+    });
+  }
+
+  // Ripple animation on button click
+  function createRipple(button) {
+    const ripple = document.createElement('span');
+    ripple.style.cssText = `
+      position: absolute;
+      width: 100%; height: 100%;
+      top: 0; left: 0;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,79,163,0.35) 0%, transparent 70%);
+      transform: scale(0);
+      animation: rippleAnim 0.45s ease forwards;
+      pointer-events: none;
+    `;
+    button.style.position = 'relative';
+    button.style.overflow = 'hidden';
+    button.appendChild(ripple);
+    setTimeout(() => ripple.remove(), 500);
+  }
+
+  // Inject ripple keyframe
+  const styleTag = document.createElement('style');
+  styleTag.textContent = `
+    @keyframes rippleAnim {
+      to { transform: scale(2.5); opacity: 0; }
+    }
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      20%       { transform: translateX(-10px); }
+      40%       { transform: translateX(10px); }
+      60%       { transform: translateX(-6px); }
+      80%       { transform: translateX(6px); }
+    }
+  `;
+  document.head.appendChild(styleTag);
+
+  updatePasscodeDots();
 }
 
-// ===========================================
-// Logic for countdown.html
-// ===========================================
+// =============================================================
+//  countdown.html — TIMER PAGE
+// =============================================================
 if (window.location.pathname.endsWith('countdown.html')) {
-    // Set your specific date and time here
-    // Example: December 25, 2024, 00:00:00 (Year, Month-1, Day, Hour, Minute, Second)
-    // Make sure the month is 0-indexed (Jan is 0, Dec is 11)
-    const startDate = new Date('2025-01-01T00:00:00'); // Ye aapki relationship ki shuruat ki date hai
+  // ── Set your relationship start date here ──────────────────
+  const startDate = new Date('2025-01-01T00:00:00');
 
-    const daysSpan = document.getElementById('days');
-    const hoursSpan = document.getElementById('hours');
-    const minutesSpan = document.getElementById('minutes');
-    const secondsSpan = document.getElementById('seconds');
+  const daysEl = document.getElementById('days');
+  const hoursEl = document.getElementById('hours');
+  const minutesEl = document.getElementById('minutes');
+  const secondsEl = document.getElementById('seconds');
 
-    function updateCountdown() {
-        const now = new Date();
-        const diff = now.getTime() - startDate.getTime(); // Difference in milliseconds
+  function pad(n) { return String(n).padStart(2, '0'); }
 
-        if (diff < 0) { // If start date is in the future
-            daysSpan.textContent = "00";
-            hoursSpan.textContent = "00";
-            minutesSpan.textContent = "00";
-            secondsSpan.textContent = "00";
-            return;
-        }
+  // Animate value change (flip effect)
+  function animateValue(el, newVal) {
+    if (el.textContent === newVal) return;
+    el.style.transform = 'scale(0.88)';
+    el.style.opacity = '0.6';
+    setTimeout(() => {
+      el.textContent = newVal;
+      el.style.transform = 'scale(1)';
+      el.style.opacity = '1';
+    }, 150);
+  }
 
-        const seconds = Math.floor(diff / 1000);
-        const minutes = Math.floor(seconds / 60);
-        const hours = Math.floor(minutes / 60);
-        const days = Math.floor(hours / 24);
+  // Add transition to timer values
+  document.querySelectorAll('.timer-value').forEach(el => {
+    el.style.transition = 'transform 0.15s ease, opacity 0.15s ease';
+  });
 
-        daysSpan.textContent = String(days).padStart(2, '0');
-        hoursSpan.textContent = String(hours % 24).padStart(2, '0');
-        minutesSpan.textContent = String(minutes % 60).padStart(2, '0');
-        secondsSpan.textContent = String(seconds % 60).padStart(2, '0');
+  function updateCountdown() {
+    const now = new Date();
+    const diff = now.getTime() - startDate.getTime();
+
+    if (diff < 0) {
+      [daysEl, hoursEl, minutesEl, secondsEl].forEach(el => {
+        if (el) el.textContent = '00';
+      });
+      return;
     }
 
-    // Update countdown every second
-    setInterval(updateCountdown, 1000);
-    // Initial call to display immediately
-    updateCountdown();
+    const totalSeconds = Math.floor(diff / 1000);
+    const totalMinutes = Math.floor(totalSeconds / 60);
+    const totalHours = Math.floor(totalMinutes / 60);
+    const totalDays = Math.floor(totalHours / 24);
+
+    if (daysEl) animateValue(daysEl, pad(totalDays));
+    if (hoursEl) animateValue(hoursEl, pad(totalHours % 24));
+    if (minutesEl) animateValue(minutesEl, pad(totalMinutes % 60));
+    if (secondsEl) animateValue(secondsEl, pad(totalSeconds % 60));
+  }
+
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
 }
 
-// ===========================================
-// Logic for recap.html (Recap Page)
-// ===========================================
+// =============================================================
+//  recap.html — RECAP / GALLERY PAGE
+// =============================================================
 if (window.location.pathname.endsWith('recap.html')) {
-    const mainRecapButtons = document.getElementById('mainRecapButtons');
-    const septemberPicSection = document.getElementById('septemberPicSection');
-    const januaryPicSection = document.getElementById('januaryPicSection');
-    const musicListSection = document.getElementById('musicListSection');
+  // Tab logic, lightbox, and music are all handled inline
+  // in recap.html for cleaner scoping. Nothing extra needed here.
+
+  // Legacy fallback: support old .icon-button data-content pattern
+  // if the page still uses the old markup
+  const mainRecapButtons = document.getElementById('mainRecapButtons');
+  const septemberPicSection = document.getElementById('septemberPicSection');
+  const januaryPicSection = document.getElementById('januaryPicSection');
+  const musicListSection = document.getElementById('musicListSection');
+
+  if (mainRecapButtons) {
+    // Old recap layout — keep working
     const recapHeading = document.getElementById('recapHeading');
     const backButtons = document.querySelectorAll('.back-to-recap-button');
 
     document.querySelectorAll('.icon-button').forEach(button => {
-        button.addEventListener('click', () => {
-            const contentType = button.dataset.content;
-
-            // Hide all content sections first
-            septemberPicSection.classList.add('hidden');
-            januaryPicSection.classList.add('hidden');
-            musicListSection.classList.add('hidden');
-            mainRecapButtons.classList.add('hidden');
-
-            if (contentType === 'september-pic') {
-                septemberPicSection.classList.remove('hidden');
-                recapHeading.textContent = "Best Pics!!";
-            } else if (contentType === 'january-pic') {
-                januaryPicSection.classList.remove('hidden');
-                recapHeading.textContent = "Our Pictures";
-            } else if (contentType === 'music-list') {
-                musicListSection.classList.remove('hidden');
-                recapHeading.textContent = "Our Favorite Songs";
-            }
+      button.addEventListener('click', () => {
+        const contentType = button.dataset.content;
+        [septemberPicSection, januaryPicSection, musicListSection, mainRecapButtons].forEach(s => {
+          if (s) s.classList.add('hidden');
         });
+        if (contentType === 'september-pic' && septemberPicSection) {
+          septemberPicSection.classList.remove('hidden');
+          if (recapHeading) recapHeading.textContent = 'Best Pics!!';
+        } else if (contentType === 'january-pic' && januaryPicSection) {
+          januaryPicSection.classList.remove('hidden');
+          if (recapHeading) recapHeading.textContent = 'Our Pictures';
+        } else if (contentType === 'music-list' && musicListSection) {
+          musicListSection.classList.remove('hidden');
+          if (recapHeading) recapHeading.textContent = 'Our Favorite Songs';
+        }
+      });
     });
 
-    backButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            showMainRecapPage();
+    backButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        [septemberPicSection, januaryPicSection, musicListSection].forEach(s => {
+          if (s) s.classList.add('hidden');
         });
+        if (mainRecapButtons) mainRecapButtons.classList.remove('hidden');
+        if (recapHeading) recapHeading.textContent = "Let's recap our time together";
+      });
+    });
+  }
+
+  // Music bounce + double-click for any music-item
+  document.querySelectorAll('.music-item').forEach(item => {
+    let clickTimeout = null;
+
+    item.addEventListener('click', () => {
+      item.classList.add('bounce');
+      setTimeout(() => item.classList.remove('bounce'), 350);
+
+      if (clickTimeout === null) {
+        clickTimeout = setTimeout(() => { clickTimeout = null; }, 300);
+      } else {
+        clearTimeout(clickTimeout);
+        clickTimeout = null;
+        const url = item.dataset.url;
+        if (url) window.open(url, '_blank');
+      }
     });
 
-    function showMainRecapPage() {
-        septemberPicSection.classList.add('hidden');
-        januaryPicSection.classList.add('hidden');
-        musicListSection.classList.add('hidden');
-        mainRecapButtons.classList.remove('hidden');
-        recapHeading.textContent = "Let's recap our time together";
-    }
-
-    // Music item bounce + double click
-    const musicItems = document.querySelectorAll('.music-item');
-
-    musicItems.forEach(item => {
-        let clickTimeout = null;
-
-        item.addEventListener('click', () => {
-            item.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            item.classList.add('bounce');
-            setTimeout(() => item.classList.remove('bounce'), 300);
-
-            if (clickTimeout === null) {
-                clickTimeout = setTimeout(() => {
-                    clickTimeout = null;
-                }, 300);
-            } else {
-                clearTimeout(clickTimeout);
-                clickTimeout = null;
-                const url = item.dataset.url;
-                if (url) window.open(url, '_blank');
-            }
-        });
-
-        item.addEventListener('dblclick', () => {
-            const youtubeLink = item.dataset.url;
-            if (youtubeLink) {
-                window.open(youtubeLink, '_blank');
-            }
-        });
+    item.addEventListener('dblclick', () => {
+      const url = item.dataset.url;
+      if (url) window.open(url, '_blank');
     });
+  });
 }
 
-// ===========================================
-// Logic for message.html and thankyou.html (no specific JS needed other than navigateTo)
+// =============================================================
+//  message.html — MESSAGE PAGE
+// =============================================================
+if (window.location.pathname.endsWith('message.html')) {
+  // showMessage / hideMessage legacy support
+  window.showMessage = function () {
+    const box = document.getElementById('loveMessage');
+    if (box) {
+      box.style.display = 'block';
+      box.style.animation = 'fadeUp 0.5s cubic-bezier(0.22,1,0.36,1) both';
+    }
+    const envelopeImg = document.querySelector('.envelope-img');
+    if (envelopeImg) envelopeImg.style.display = 'none';
+  };
 
-// ===========================================
-// The MapsTo function is global, so it works for all pages.
-// No page-specific JS needed for message.html or thankyou.html unless you add more interactive elements.
+  window.hideMessage = function () {
+    const box = document.getElementById('loveMessage');
+    if (box) box.style.display = 'none';
+    const envelopeImg = document.querySelector('.envelope-img');
+    if (envelopeImg) envelopeImg.style.display = '';
+  };
+}
+
+// =============================================================
+//  thankyou.html — THANK YOU PAGE (no extra logic needed)
+// =============================================================
+// All logic is inline in thankyou.html
+
+// =============================================================
+//  GLOBAL: Mouse-follow ambient glow effect
+// =============================================================
+(function initMouseGlow() {
+  const glow = document.createElement('div');
+  glow.style.cssText = `
+    position: fixed;
+    width: 320px;
+    height: 320px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,79,163,0.07) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+    transform: translate(-50%, -50%);
+    transition: left 0.6s ease, top 0.6s ease;
+    filter: blur(20px);
+  `;
+  document.body.appendChild(glow);
+
+  let ticking = false;
+  document.addEventListener('mousemove', e => {
+    if (!ticking) {
+      requestAnimationFrame(() => {
+        glow.style.left = e.clientX + 'px';
+        glow.style.top = e.clientY + 'px';
+        ticking = false;
+      });
+      ticking = true;
+    }
+  });
+})();

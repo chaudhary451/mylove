@@ -1,33 +1,173 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Our Time Together</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Our Time Together 💗</title>
+  <meta name="description" content="Counting every beautiful moment we've shared together.">
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* Extra countdown-specific enhancements */
+    .countdown-container { text-align: center; }
+
+    .love-icon {
+      font-size: 3.5rem;
+      margin-bottom: 4px;
+      display: block;
+      animation: heartbeat 1.6s ease-in-out infinite;
+      filter: drop-shadow(0 0 20px rgba(255,79,163,0.7));
+    }
+    @keyframes heartbeat {
+      0%, 100% { transform: scale(1); }
+      14%  { transform: scale(1.18); }
+      28%  { transform: scale(1); }
+      42%  { transform: scale(1.12); }
+      56%  { transform: scale(1); }
+    }
+
+    .milestone-row {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin: 24px 0 0;
+      flex-wrap: wrap;
+    }
+    .milestone-pill {
+      background: rgba(255,79,163,0.1);
+      border: 1px solid rgba(255,79,163,0.25);
+      border-radius: 100px;
+      padding: 6px 14px;
+      font-size: 0.72rem;
+      color: var(--pink-soft);
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      transition: all 0.3s ease;
+    }
+    .milestone-pill:hover {
+      background: rgba(255,79,163,0.2);
+      border-color: rgba(255,79,163,0.5);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(255,79,163,0.2);
+    }
+  </style>
 </head>
 <body>
-    <div class="container countdown-container">
-        <p class="countdown-pretext">We've been together for:</p>
-        <div class="countdown-timer">
-            <span id="days">00</span> :
-            <span id="hours">00</span> :
-            <span id="minutes">00</span> :
-            <span id="seconds">00</span>
-        </div>
-        <p class="countdown-posttext">...and still counting &lt;3</p>
 
-        <div class="nav-buttons">
-            <button class="nav-button" onclick="navigateTo('index.html')">
-                &larr; Previous page
-            </button>
-            <button class="nav-button" onclick="navigateTo('recap.html')">
-                Next page &rarr;
-            </button>
-        </div>
+  <!-- Blobs -->
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="blob blob-3"></div>
+
+  <!-- Particles -->
+  <div class="particles-container" id="particles"></div>
+
+  <!-- Custom cursor -->
+  <div class="cursor-dot" id="cursorDot"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+
+  <main class="container countdown-container page-enter">
+
+    <span class="love-icon">💗</span>
+
+    <div class="badge" style="margin-top:12px;">
+      <span class="badge-dot"></span>
+      Still Counting
     </div>
 
-    <script src="script.js"></script>
+    <h1 class="glow-title" style="margin-top:8px;">Our Journey</h1>
+    <p class="countdown-pretext">We've been together for:</p>
+
+    <div class="countdown-timer" id="countdownTimer">
+      <div class="timer-block">
+        <div class="timer-value" id="days">00</div>
+        <div class="timer-label">Days</div>
+      </div>
+      <div class="timer-sep">:</div>
+      <div class="timer-block">
+        <div class="timer-value" id="hours">00</div>
+        <div class="timer-label">Hours</div>
+      </div>
+      <div class="timer-sep">:</div>
+      <div class="timer-block">
+        <div class="timer-value" id="minutes">00</div>
+        <div class="timer-label">Mins</div>
+      </div>
+      <div class="timer-sep">:</div>
+      <div class="timer-block">
+        <div class="timer-value" id="seconds">00</div>
+        <div class="timer-label">Secs</div>
+      </div>
+    </div>
+
+    <p class="countdown-posttext">...and still counting &lt;3</p>
+
+    <!-- Milestones -->
+    <div class="milestone-row">
+      <span class="milestone-pill" id="pill-days">🌸 — days</span>
+      <span class="milestone-pill" id="pill-months">💕 — months</span>
+      <span class="milestone-pill" id="pill-hours">⭐ — hours</span>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="nav-buttons">
+      <button class="btn btn-ghost" onclick="navigateTo('index.html')" id="prevBtn">
+        ← Back
+      </button>
+      <button class="btn btn-primary" onclick="navigateTo('recap.html')" id="nextBtn">
+        Explore Us →
+      </button>
+    </div>
+
+  </main>
+
+  <script src="script.js"></script>
+  <script>
+    // ── Custom cursor ──────────────────────────────
+    const dot  = document.getElementById('cursorDot');
+    const ring = document.getElementById('cursorRing');
+    let mx = 0, my = 0, rx = 0, ry = 0;
+    document.addEventListener('mousemove', e => {
+      mx = e.clientX; my = e.clientY;
+      dot.style.left = mx + 'px'; dot.style.top = my + 'px';
+    });
+    (function animRing() {
+      rx += (mx - rx) * 0.12; ry += (my - ry) * 0.12;
+      ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+      requestAnimationFrame(animRing);
+    })();
+
+    // ── Particles ──────────────────────────────────
+    const pContainer = document.getElementById('particles');
+    const symbols = ['💗','✨','🌸','💕','⭐','🌙','💖'];
+    function spawnParticle() {
+      const p = document.createElement('div');
+      p.className = 'particle';
+      p.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+      const size = 0.5 + Math.random() * 0.9;
+      p.style.cssText = `left:${Math.random()*100}vw;font-size:${size}rem;animation-duration:${9+Math.random()*14}s;animation-delay:${Math.random()*3}s;`;
+      pContainer.appendChild(p);
+      setTimeout(() => p.remove(), 28000);
+    }
+    for (let i = 0; i < 10; i++) setTimeout(spawnParticle, i * 600);
+    setInterval(spawnParticle, 3000);
+
+    // ── Milestone pills update ─────────────────────
+    function updatePills() {
+      const startDate = new Date('2025-01-01T00:00:00');
+      const now = new Date();
+      const diff = now - startDate;
+      if (diff < 0) return;
+      const totalDays  = Math.floor(diff / 86400000);
+      const totalHours = Math.floor(diff / 3600000);
+      const months     = Math.floor(totalDays / 30.44);
+      document.getElementById('pill-days').textContent   = `🌸 ${totalDays} days`;
+      document.getElementById('pill-months').textContent = `💕 ${months} months`;
+      document.getElementById('pill-hours').textContent  = `⭐ ${totalHours.toLocaleString()} hours`;
+    }
+    updatePills();
+  </script>
 </body>
 </html>

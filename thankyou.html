@@ -1,25 +1,286 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Thank You, My Love!</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Thank You, My Love 💗</title>
+  <meta name="description" content="Thank you for being mine. I love you always.">
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    .thankyou-container { text-align: center; }
+
+    /* ── Big hero emoji ─────────────── */
+    .hero-emoji {
+      font-size: 5rem;
+      display: block;
+      margin: 0 auto 20px;
+      animation: heroFloat 3.5s ease-in-out infinite;
+      filter: drop-shadow(0 0 30px rgba(255,79,163,0.7));
+    }
+    @keyframes heroFloat {
+      0%, 100% { transform: translateY(0) scale(1) rotate(-3deg); }
+      50%       { transform: translateY(-16px) scale(1.04) rotate(3deg); }
+    }
+
+    /* ── Quote card ─────────────────── */
+    .quote-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,79,163,0.2);
+      border-radius: 20px;
+      padding: 28px 24px;
+      margin: 20px 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .quote-card::before {
+      content: '\201C';
+      position: absolute;
+      top: -8px; left: 14px;
+      font-size: 7rem;
+      color: rgba(255,79,163,0.07);
+      font-family: Georgia, serif;
+      line-height: 1;
+      pointer-events: none;
+    }
+    .quote-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 50% 0%, rgba(255,79,163,0.06) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .quote-text {
+      font-size: 1rem;
+      line-height: 1.8;
+      color: var(--text-secondary);
+      font-style: italic;
+      position: relative;
+      z-index: 1;
+    }
+    .quote-text strong {
+      color: var(--pink-soft);
+      font-style: normal;
+      font-weight: 600;
+    }
+
+    /* ── Stats row ──────────────────── */
+    .stats-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 10px;
+      margin: 20px 0;
+    }
+    .stat-block {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 14px;
+      padding: 14px 8px;
+      transition: all 0.3s ease;
+    }
+    .stat-block:hover {
+      background: rgba(255,79,163,0.08);
+      border-color: rgba(255,79,163,0.3);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 24px rgba(255,79,163,0.15);
+    }
+    .stat-emoji {
+      font-size: 1.5rem;
+      display: block;
+      margin-bottom: 6px;
+      filter: drop-shadow(0 0 6px rgba(255,79,163,0.4));
+    }
+    .stat-value {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--pink-soft);
+      display: block;
+      font-family: 'Space Grotesk', sans-serif;
+    }
+    .stat-label {
+      font-size: 0.65rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 600;
+    }
+
+    /* ── Confetti burst ─────────────── */
+    .confetti-piece {
+      position: fixed;
+      width: 8px; height: 8px;
+      border-radius: 2px;
+      animation: confettiFall linear both;
+      pointer-events: none;
+      z-index: 500;
+    }
+    @keyframes confettiFall {
+      0%   { transform: translateY(-20px) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
+    }
+
+    /* ── Restart link ────────────────── */
+    .restart-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--text-muted);
+      font-size: 0.78rem;
+      cursor: pointer;
+      background: none; border: none;
+      font-family: 'Poppins', sans-serif;
+      letter-spacing: 0.04em;
+      margin-top: 8px;
+      transition: color 0.25s ease;
+    }
+    .restart-link:hover { color: var(--pink-soft); }
+  </style>
 </head>
 <body>
-    <div class="container thankyou-container">
-        <img src="images/rabbit_heart.png" alt="Cute Rabbit with Heart" class="thankyou-illustration">
-        <p class="thankyou-message-1">Thank you for everything, my love!</p>
-        <p class="thankyou-message-2">Wishing us many more wonderful years together.</p>
 
-        <div class="nav-buttons thankyou-nav">
-            <button class="nav-button" onclick="navigateTo('message.html')">
-                &larr; Previous page
-            </button>
-            </div>
+  <!-- Blobs -->
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="blob blob-3"></div>
+
+  <!-- Particles -->
+  <div class="particles-container" id="particles"></div>
+
+  <!-- Custom cursor -->
+  <div class="cursor-dot" id="cursorDot"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+
+  <main class="container thankyou-container page-enter">
+
+    <div class="badge">
+      <span class="badge-dot"></span>
+      Forever & Always
     </div>
 
-    <script src="script.js"></script>
+    <!-- Hero emoji (fallback for illustration) -->
+    <span class="hero-emoji" role="img" aria-label="Love heart">💝</span>
+
+    <h1 class="thankyou-message-1">Thank You, My Love!</h1>
+    <p class="thankyou-message-2">
+      Thank you for everything — for every laugh, every late night, every little moment that made us <em>us</em>.
+    </p>
+
+    <!-- Hearts row -->
+    <div class="thankyou-hearts" aria-hidden="true">
+      <span>💗</span>
+      <span>💕</span>
+      <span>💖</span>
+      <span>💓</span>
+      <span>🌸</span>
+    </div>
+
+    <!-- Quote -->
+    <div class="quote-card">
+      <p class="quote-text">
+        "In all the world, there is no heart for me like yours. In all the world,
+        there is no love for you like <strong>mine</strong>."
+      </p>
+    </div>
+
+    <!-- Stats -->
+    <div class="stats-row" id="statsRow">
+      <div class="stat-block">
+        <span class="stat-emoji">🌸</span>
+        <span class="stat-value" id="statDays">—</span>
+        <span class="stat-label">Days</span>
+      </div>
+      <div class="stat-block">
+        <span class="stat-emoji">💌</span>
+        <span class="stat-value" id="statMonths">—</span>
+        <span class="stat-label">Months</span>
+      </div>
+      <div class="stat-block">
+        <span class="stat-emoji">⭐</span>
+        <span class="stat-value" id="statMemories">∞</span>
+        <span class="stat-label">Memories</span>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="nav-buttons" style="flex-direction:column;align-items:center;gap:10px;">
+      <button class="btn btn-primary" onclick="navigateTo('message.html')" style="width:100%;">← Back to Message</button>
+      <button class="restart-link" onclick="navigateTo('index.html')">↩ Start over from the beginning</button>
+    </div>
+
+  </main>
+
+  <script src="script.js"></script>
+  <script>
+    // ── Custom cursor ──────────────────────────────────────
+    const dot  = document.getElementById('cursorDot');
+    const ring = document.getElementById('cursorRing');
+    let mx = 0, my = 0, rx = 0, ry = 0;
+    document.addEventListener('mousemove', e => {
+      mx = e.clientX; my = e.clientY;
+      dot.style.left = mx + 'px'; dot.style.top = my + 'px';
+    });
+    (function animRing() {
+      rx += (mx - rx) * 0.12; ry += (my - ry) * 0.12;
+      ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+      requestAnimationFrame(animRing);
+    })();
+    document.querySelectorAll('button, .stat-block').forEach(el => {
+      el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
+      el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
+    });
+
+    // ── Particles ──────────────────────────────────────────
+    const pContainer = document.getElementById('particles');
+    const symbols = ['💗','✨','🌸','💕','⭐','🌙','💖','💝','🦋'];
+    function spawnParticle() {
+      const p = document.createElement('div');
+      p.className = 'particle';
+      p.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+      const size = 0.5 + Math.random() * 1.1;
+      p.style.cssText = `left:${Math.random()*100}vw;font-size:${size}rem;animation-duration:${9+Math.random()*14}s;animation-delay:${Math.random()*3}s;`;
+      pContainer.appendChild(p);
+      setTimeout(() => p.remove(), 28000);
+    }
+    for (let i = 0; i < 14; i++) setTimeout(spawnParticle, i * 400);
+    setInterval(spawnParticle, 2500);
+
+    // ── Update stats ───────────────────────────────────────
+    (function updateStats() {
+      const startDate = new Date('2025-01-01T00:00:00');
+      const now = new Date();
+      const diff = now - startDate;
+      if (diff < 0) return;
+      const totalDays   = Math.floor(diff / 86400000);
+      const totalMonths = Math.floor(totalDays / 30.44);
+      document.getElementById('statDays').textContent   = totalDays.toLocaleString();
+      document.getElementById('statMonths').textContent = totalMonths;
+    })();
+
+    // ── Confetti burst on load ─────────────────────────────
+    const confettiColors = ['#ff4fa3','#ff85c2','#ffa8d5','#c9007a','#ffffff','#ffe0f0'];
+    function launchConfetti() {
+      for (let i = 0; i < 40; i++) {
+        setTimeout(() => {
+          const piece = document.createElement('div');
+          piece.className = 'confetti-piece';
+          piece.style.cssText = `
+            left: ${Math.random() * 100}vw;
+            top: 0;
+            background: ${confettiColors[Math.floor(Math.random() * confettiColors.length)]};
+            width: ${4 + Math.random() * 8}px;
+            height: ${4 + Math.random() * 8}px;
+            border-radius: ${Math.random() > 0.5 ? '50%' : '2px'};
+            animation-duration: ${2 + Math.random() * 3}s;
+            animation-delay: ${Math.random() * 0.5}s;
+          `;
+          document.body.appendChild(piece);
+          setTimeout(() => piece.remove(), 6000);
+        }, i * 60);
+      }
+    }
+    setTimeout(launchConfetti, 400);
+  </script>
 </body>
 </html>

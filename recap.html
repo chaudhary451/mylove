@@ -1,169 +1,506 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Recap Our Time</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Our Story — Recap 💕</title>
+  <meta name="description" content="A beautiful recap of all our memories together.">
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    .recap-container {
+      max-width: 540px;
+      width: 92%;
+    }
+
+    /* ── Tab nav ───────────────────────── */
+    .tab-nav {
+      display: flex;
+      gap: 8px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 16px;
+      padding: 6px;
+      margin-bottom: 28px;
+    }
+    .tab-btn {
+      flex: 1;
+      padding: 10px 8px;
+      border: none;
+      border-radius: 10px;
+      background: transparent;
+      color: rgba(255,255,255,0.45);
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
+      letter-spacing: 0.02em;
+    }
+    .tab-btn i { font-size: 1.1rem; }
+    .tab-btn.active {
+      background: rgba(255,79,163,0.15);
+      color: var(--pink-soft);
+      border: 1px solid rgba(255,79,163,0.35);
+      box-shadow: 0 0 20px rgba(255,79,163,0.12);
+    }
+    .tab-btn:hover:not(.active) {
+      background: rgba(255,255,255,0.06);
+      color: rgba(255,255,255,0.7);
+    }
+
+    /* ── Panel ──────────────────────────── */
+    .tab-panel {
+      display: none;
+      animation: fadeUp 0.45s cubic-bezier(0.22,1,0.36,1) both;
+    }
+    .tab-panel.active { display: block; }
+
+    /* ── Gallery ───────────────────────── */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    .gallery-card {
+      border-radius: 16px;
+      overflow: hidden;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      position: relative;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      aspect-ratio: 3/4;
+    }
+    .gallery-card:first-child {
+      grid-column: span 2;
+      aspect-ratio: 16/9;
+    }
+    .gallery-card img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.5s ease;
+    }
+    .gallery-card:hover img { transform: scale(1.06); }
+    .gallery-card:hover {
+      border-color: rgba(255,79,163,0.4);
+      box-shadow: 0 8px 32px rgba(255,79,163,0.2);
+      transform: translateY(-2px);
+    }
+    .gallery-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(15,5,29,0.85) 0%, transparent 50%);
+      display: flex;
+      align-items: flex-end;
+      padding: 14px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .gallery-card:hover .gallery-overlay { opacity: 1; }
+    .gallery-overlay-text h3 {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--pink-soft);
+      margin: 0 0 2px;
+    }
+    .gallery-overlay-text p {
+      font-size: 0.7rem;
+      color: rgba(255,255,255,0.6);
+      margin: 0;
+    }
+
+    /* Photo placeholder when image missing */
+    .photo-placeholder {
+      width: 100%; height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: linear-gradient(135deg, rgba(255,79,163,0.12), rgba(180,30,120,0.18));
+      color: rgba(255,255,255,0.4);
+      font-size: 2rem;
+    }
+    .photo-placeholder span {
+      font-size: 0.7rem;
+      font-family: 'Poppins', sans-serif;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.25);
+    }
+
+    /* ── Music ──────────────────────────── */
+    .music-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+    }
+    .music-count {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      background: rgba(255,255,255,0.05);
+      border-radius: 100px;
+      padding: 4px 10px;
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    /* ── Back button ────────────────────── */
+    .section-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--text-muted);
+      font-size: 0.8rem;
+      font-weight: 500;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 0;
+      margin-bottom: 20px;
+      font-family: 'Poppins', sans-serif;
+      transition: color 0.25s ease;
+      letter-spacing: 0.02em;
+    }
+    .section-back:hover { color: var(--pink-soft); }
+
+    /* ── Lightbox ───────────────────────── */
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(10,3,18,0.92);
+      backdrop-filter: blur(20px);
+      z-index: 1000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      animation: fadeIn 0.3s ease;
+    }
+    .lightbox.open { display: flex; }
+    .lightbox-img {
+      max-width: 90vw;
+      max-height: 85vh;
+      border-radius: 16px;
+      box-shadow: 0 24px 80px rgba(0,0,0,0.6), 0 0 40px rgba(255,79,163,0.2);
+      animation: scaleIn 0.35s cubic-bezier(0.22,1,0.36,1);
+    }
+    @keyframes scaleIn {
+      from { transform: scale(0.85); opacity: 0; }
+      to   { transform: scale(1); opacity: 1; }
+    }
+    .lightbox-close {
+      position: absolute;
+      top: 20px; right: 24px;
+      font-size: 2rem;
+      color: rgba(255,255,255,0.5);
+      cursor: pointer;
+      transition: color 0.2s ease;
+      background: none; border: none;
+      line-height: 1;
+    }
+    .lightbox-close:hover { color: var(--pink-primary); }
+  </style>
 </head>
 <body>
-    <div class="container recap-container">
-        <h1 class="recap-heading" id="recapHeading">Let's recap our time together</h1>
 
-        <div class="content-selection-buttons" id="mainRecapButtons">
-            <div class="icon-button" data-content="september-pic">
-                <i class="fas fa-comment-dots"></i>
-                <p>Click me!</p>
-            </div>
-            <div class="icon-button" data-content="january-pic">
-                <i class="fas fa-image"></i>
-                <p>Click me!</p>
-            </div>
-            <div class="icon-button" data-content="music-list">
-                <i class="fas fa-music"></i>
-                <p>Click me!</p>
-            </div>
-        </div>
+  <!-- Blobs -->
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="blob blob-3"></div>
 
-        <div id="septemberPicSection" class="content-display-section hidden">
-  <h2 class="content-title">Best Pics!!</h2>
-  <div class="gallery">
-    <!-- Photo 1 -->
-    <div class="gallery-item">
-      <img src="c:\Users\Chaud\OneDrive\Desktop\All webpage\Pic\Picture3.png" alt="Pic 1">
-      <div class="image-info">
-        <h3>September 3, 2024</h3>
-        <p>A beautiful day to remember.</p>
-      </div>
-    </div>
-    <!-- Photo 2 -->
-    <div class="gallery-item">
-      <img src="c:\Users\Chaud\OneDrive\Desktop\All webpage\Pic\Picture2.png" alt="Pic 2">
-      <div class="image-info">
-        <h3>January 1 , 2025</h3>
-        <p>A beautiful moment</p>
-      </div>
-    </div>
-    <!-- Photo 3 -->
-    <div class="gallery-item">
-      <img src="c:\Users\Chaud\OneDrive\Desktop\All webpage\Pic\MessageImage2.png" alt="Pic 3">
-      <div class="image-info">
-        <h3>february 1 , 2025</h3>
-        <p>my moment</p>
-      </div>
-    </div>
+  <!-- Particles -->
+  <div class="particles-container" id="particles"></div>
+
+  <!-- Custom cursor -->
+  <div class="cursor-dot" id="cursorDot"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
+    <button class="lightbox-close" id="lightboxClose" aria-label="Close">&times;</button>
+    <img class="lightbox-img" id="lightboxImg" src="" alt="Gallery image">
   </div>
-  <button class="nav-button back-to-recap-button">&larr; Back</button>
-</div>
 
-       <div id="januaryPicSection" class="content-display-section hidden">
-  <h2 class="content-title">Our Pictures</h2>
-  <div class="gallery">
-    <!-- Photo 1 -->
-    <div class="gallery-item">
-      <img src="c:\Users\Chaud\OneDrive\Desktop\All webpage\Pic\Picture1.png" alt="Jan 1">
-      <div class="image-info">
-        <h3>January 1, 2024</h3>
-        <p>New Year's Celebration 🎉🥳</p>
-      </div>
-    </div>
-    <!-- Photo 2 -->
-    <div class="gallery-item">
-      <img src="path/to/jan_pic2.jpg" alt="Jan 2">
-      <div class="image-info">
-        <h3>Date 2</h3>
-        <p>Description Jan 2</p>
-      </div>
-    </div>
-    <!-- Photo 3 -->
-    <div class="gallery-item">
-      <img src="path/to/jan_pic3.jpg" alt="Jan 3">
-      <div class="image-info">
-        <h3>Date 3</h3>
-        <p>Description Jan 3</p>
-      </div>
-    </div>
-  </div>
-  <button class="nav-button back-to-recap-button">&larr; Back</button>
-</div>
+  <main class="container recap-container page-enter">
 
-        <div id="musicListSection" class="content-display-section hidden">
-            <h2 class="content-title">Our Favorite Songs</h2>
-            <div class="music-list">
-                <div class="music-item" data-url="https://www.youtube.com/watch?v=yourLink1">
-                    <img src="images/heavenly_album.jpg" alt="Album Cover" class="album-cover">
-                    <div class="song-details">
-                        <p class="song-title">Heavenly</p>
-                        <p class="song-artist">Cigarettes After Sex</p>
-                    </div>
-                </div>
-                <div class="music-item" data-url="https://www.youtube.com/watch?v=yourLink1">
-                    <img src="images/theboyismine_album.jpg" alt="Album Cover" class="album-cover">
-                    <div class="song-details">
-                        <p class="song-title">The Boy Is Mine</p>
-                        <p class="song-artist">Brandy, Monica</p>
-                    </div>
-                </div>
-                <div class="music-item"data-url="https://www.youtube.com/watch?v=yourLink1">
-                    <img src="images/sunsetz_album.jpg" alt="Album Cover" class="album-cover">
-                    <div class="song-details">
-                        <p class="song-title">Sunsetz</p>
-                        <p class="song-artist">Cigarettes After Sex</p>
-                    </div>
-                </div>
-                <div class="music-item"data-url="https://youtu.be/kPa7bsKwL-c?si=fVStLObdOTnqE8CC">
-                    <img src="https://cdn.jsdelivr.net/gh/chaudhary451/mylove/music/3.png" alt="Album Cover" class="album-cover">
-                    <div class="song-details">
-                        <p class="song-title">Die With A Smile</p>
-                        <p class="song-artist">Lady Gaga, Bruno Mars</p>
-                    </div>
-                </div>
-                <div class="music-item"data-url="https://www.youtube.com/watch?v=yourLink1">
-                    <img src="images/kissthroughme_album.jpg" alt="Album Cover" class="album-cover">
-                    <div class="song-details">
-                        <p class="song-title">Kiss Me Thru The Phone</p>
-                        <p class="song-artist">Soulja Boy, Sammie</p>
-                    </div>
-                </div>
-                <div class="music-item"data-url="https://www.youtube.com/watch?v=yourLink1">
-                    <img src="images/americanboy_album.jpg" alt="Album Cover" class="album-cover">
-                    <div class="song-details">
-                        <p class="song-title">American Boy</p>
-                        <p class="song-artist">Estelle, Kanye West</p>
-                    </div>
-                </div>
-                <div class="music-item"data-url="https://www.youtube.com/watch?v=yourLink1">
-                    <img src="images/lastonearth_album.jpg" alt="Album Cover" class="album-cover">
-                    <div class="song-details">
-                        <p class="song-title">Last Night on Earth</p>
-                        <p class="song-artist">Green Day</p>
-                    </div>
-                </div>
-                <div class="music-item"data-url="https://www.youtube.com/watch?v=yourLink1">
-                    <img src="images/sparks_album.jpg" alt="Album Cover" class="album-cover">
-                    <div class="song-details">
-                        <p class="song-title">Sparks</p>
-                        <p class="song-artist">Coldplay</p>
-                    </div>
-                </div>
-            </div>
-            <button class="nav-button back-to-recap-button">&larr; Back</button>
+    <div class="badge">
+      <span class="badge-dot"></span>
+      Our Memories
+    </div>
+
+    <h1 class="recap-heading glow-title" id="recapHeading">Let's Recap Our Story</h1>
+
+    <!-- Tab navigation -->
+    <nav class="tab-nav" role="tablist" aria-label="Memory sections">
+      <button class="tab-btn active" data-tab="best-pics" role="tab" aria-selected="true" id="tab-best-pics">
+        <i class="fas fa-camera-retro"></i>
+        Best Pics
+      </button>
+      <button class="tab-btn" data-tab="our-pics" role="tab" aria-selected="false" id="tab-our-pics">
+        <i class="fas fa-images"></i>
+        Our Pics
+      </button>
+      <button class="tab-btn" data-tab="music" role="tab" aria-selected="false" id="tab-music">
+        <i class="fas fa-music"></i>
+        Our Songs
+      </button>
+    </nav>
+
+    <!-- ─── Panel: Best Pics ─────────────────── -->
+    <div class="tab-panel active" id="panel-best-pics" role="tabpanel" aria-labelledby="tab-best-pics">
+      <div class="gallery-grid">
+
+        <div class="gallery-card" data-src="c:\Users\Chaud\OneDrive\Desktop\All webpage\Pic\Picture3.png" data-caption="September 3, 2024">
+          <img src="c:\Users\Chaud\OneDrive\Desktop\All webpage\Pic\Picture3.png" alt="September 3, 2024"
+               onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="photo-placeholder" style="display:none;">📸<span>Sep 3, 2024</span></div>
+          <div class="gallery-overlay">
+            <div class="gallery-overlay-text"><h3>September 3, 2024</h3><p>A beautiful day to remember 🌸</p></div>
+          </div>
         </div>
 
-
-        <div class="nav-buttons main-nav-recap" id="recapNavButtons">
-            <button class="nav-button" onclick="navigateTo('countdown.html')">
-                &larr; Previous page
-            </button>
-            <button class="nav-button" onclick="navigateTo('message.html')">
-                Next page &rarr;
-            </button>
+        <div class="gallery-card" data-src="c:\Users\Chaud\OneDrive\Desktop\All webpage\Pic\Picture2.png" data-caption="January 1, 2025">
+          <img src="c:\Users\Chaud\OneDrive\Desktop\All webpage\Pic\Picture2.png" alt="January 1, 2025"
+               onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="photo-placeholder" style="display:none;">🌷<span>Jan 1, 2025</span></div>
+          <div class="gallery-overlay">
+            <div class="gallery-overlay-text"><h3>January 1, 2025</h3><p>A beautiful moment 💕</p></div>
+          </div>
         </div>
 
+        <div class="gallery-card" data-src="c:\Users\Chaud\OneDrive\Desktop\All webpage\Pic\MessageImage2.png" data-caption="February 2025">
+          <img src="c:\Users\Chaud\OneDrive\Desktop\All webpage\Pic\MessageImage2.png" alt="February 2025"
+               onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="photo-placeholder" style="display:none;">💖<span>Feb 2025</span></div>
+          <div class="gallery-overlay">
+            <div class="gallery-overlay-text"><h3>February 2025</h3><p>My moment ✨</p></div>
+          </div>
+        </div>
+
+      </div>
     </div>
 
-    <script src="script.js"></script>
+    <!-- ─── Panel: Our Pics ──────────────────── -->
+    <div class="tab-panel" id="panel-our-pics" role="tabpanel" aria-labelledby="tab-our-pics">
+      <div class="gallery-grid">
+
+        <div class="gallery-card" data-src="c:\Users\Chaud\OneDrive\Desktop\All webpage\Pic\Picture1.png" data-caption="January 1, 2024">
+          <img src="c:\Users\Chaud\OneDrive\Desktop\All webpage\Pic\Picture1.png" alt="January 1, 2024"
+               onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="photo-placeholder" style="display:none;">🎉<span>Jan 1, 2024</span></div>
+          <div class="gallery-overlay">
+            <div class="gallery-overlay-text"><h3>January 1, 2024</h3><p>New Year's Celebration 🎉🥳</p></div>
+          </div>
+        </div>
+
+        <div class="gallery-card">
+          <div class="photo-placeholder">📷<span>Coming Soon</span></div>
+        </div>
+
+        <div class="gallery-card">
+          <div class="photo-placeholder">📷<span>Coming Soon</span></div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ─── Panel: Music ────────────────────── -->
+    <div class="tab-panel" id="panel-music" role="tabpanel" aria-labelledby="tab-music">
+      <div class="music-header">
+        <span style="font-size:0.85rem;color:var(--text-secondary);font-weight:500;">Double tap to open on YouTube</span>
+        <span class="music-count">8 songs</span>
+      </div>
+      <div class="music-list">
+
+        <div class="music-item" data-url="https://www.youtube.com/results?search_query=Heavenly+Cigarettes+After+Sex">
+          <div class="album-cover-placeholder">🎵</div>
+          <div class="song-details">
+            <p class="song-title">Heavenly</p>
+            <p class="song-artist">Cigarettes After Sex</p>
+          </div>
+          <i class="fas fa-external-link-alt music-play-icon"></i>
+        </div>
+
+        <div class="music-item" data-url="https://www.youtube.com/results?search_query=The+Boy+Is+Mine+Brandy+Monica">
+          <div class="album-cover-placeholder">🎶</div>
+          <div class="song-details">
+            <p class="song-title">The Boy Is Mine</p>
+            <p class="song-artist">Brandy, Monica</p>
+          </div>
+          <i class="fas fa-external-link-alt music-play-icon"></i>
+        </div>
+
+        <div class="music-item" data-url="https://www.youtube.com/results?search_query=Sunsetz+Cigarettes+After+Sex">
+          <div class="album-cover-placeholder">🌅</div>
+          <div class="song-details">
+            <p class="song-title">Sunsetz</p>
+            <p class="song-artist">Cigarettes After Sex</p>
+          </div>
+          <i class="fas fa-external-link-alt music-play-icon"></i>
+        </div>
+
+        <div class="music-item" data-url="https://youtu.be/kPa7bsKwL-c?si=fVStLObdOTnqE8CC">
+          <img src="https://cdn.jsdelivr.net/gh/chaudhary451/mylove/music/3.png" alt="Die With A Smile" class="album-cover"
+               onerror="this.outerHTML='<div class=\'album-cover-placeholder\'>🌟</div>'">
+          <div class="song-details">
+            <p class="song-title">Die With A Smile</p>
+            <p class="song-artist">Lady Gaga, Bruno Mars</p>
+          </div>
+          <i class="fas fa-external-link-alt music-play-icon"></i>
+        </div>
+
+        <div class="music-item" data-url="https://www.youtube.com/results?search_query=Kiss+Me+Thru+The+Phone+Soulja+Boy">
+          <div class="album-cover-placeholder">📱</div>
+          <div class="song-details">
+            <p class="song-title">Kiss Me Thru The Phone</p>
+            <p class="song-artist">Soulja Boy, Sammie</p>
+          </div>
+          <i class="fas fa-external-link-alt music-play-icon"></i>
+        </div>
+
+        <div class="music-item" data-url="https://www.youtube.com/results?search_query=American+Boy+Estelle+Kanye+West">
+          <div class="album-cover-placeholder">🇺🇸</div>
+          <div class="song-details">
+            <p class="song-title">American Boy</p>
+            <p class="song-artist">Estelle, Kanye West</p>
+          </div>
+          <i class="fas fa-external-link-alt music-play-icon"></i>
+        </div>
+
+        <div class="music-item" data-url="https://www.youtube.com/results?search_query=Last+Night+on+Earth+Green+Day">
+          <div class="album-cover-placeholder">🌙</div>
+          <div class="song-details">
+            <p class="song-title">Last Night on Earth</p>
+            <p class="song-artist">Green Day</p>
+          </div>
+          <i class="fas fa-external-link-alt music-play-icon"></i>
+        </div>
+
+        <div class="music-item" data-url="https://www.youtube.com/results?search_query=Sparks+Coldplay">
+          <div class="album-cover-placeholder">✨</div>
+          <div class="song-details">
+            <p class="song-title">Sparks</p>
+            <p class="song-artist">Coldplay</p>
+          </div>
+          <i class="fas fa-external-link-alt music-play-icon"></i>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="nav-buttons">
+      <button class="btn btn-ghost" onclick="navigateTo('countdown.html')">← Back</button>
+      <button class="btn btn-primary" onclick="navigateTo('message.html')">A Message →</button>
+    </div>
+
+  </main>
+
+  <script src="script.js"></script>
+  <script>
+    // ── Custom cursor ──────────────────────────────────────
+    const dot  = document.getElementById('cursorDot');
+    const ring = document.getElementById('cursorRing');
+    let mx = 0, my = 0, rx = 0, ry = 0;
+    document.addEventListener('mousemove', e => {
+      mx = e.clientX; my = e.clientY;
+      dot.style.left = mx + 'px'; dot.style.top = my + 'px';
+    });
+    (function animRing() {
+      rx += (mx - rx) * 0.12; ry += (my - ry) * 0.12;
+      ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+      requestAnimationFrame(animRing);
+    })();
+    document.querySelectorAll('button, .music-item, .gallery-card, .tab-btn').forEach(el => {
+      el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
+      el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
+    });
+
+    // ── Particles ──────────────────────────────────────────
+    const pContainer = document.getElementById('particles');
+    const symbols = ['💗','✨','🌸','💕','⭐','🌙','💖','🦋'];
+    function spawnParticle() {
+      const p = document.createElement('div');
+      p.className = 'particle';
+      p.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+      const size = 0.5 + Math.random() * 0.9;
+      p.style.cssText = `left:${Math.random()*100}vw;font-size:${size}rem;animation-duration:${9+Math.random()*14}s;animation-delay:${Math.random()*3}s;`;
+      pContainer.appendChild(p);
+      setTimeout(() => p.remove(), 28000);
+    }
+    for (let i = 0; i < 10; i++) setTimeout(spawnParticle, i * 600);
+    setInterval(spawnParticle, 3200);
+
+    // ── Tab switching ──────────────────────────────────────
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const tabId = btn.dataset.tab;
+        document.querySelectorAll('.tab-btn').forEach(b => {
+          b.classList.remove('active');
+          b.setAttribute('aria-selected', 'false');
+        });
+        document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+        btn.classList.add('active');
+        btn.setAttribute('aria-selected', 'true');
+        const panel = document.getElementById('panel-' + tabId);
+        panel.classList.add('active');
+      });
+    });
+
+    // ── Gallery lightbox ───────────────────────────────────
+    const lightbox     = document.getElementById('lightbox');
+    const lightboxImg  = document.getElementById('lightboxImg');
+    const lightboxClose = document.getElementById('lightboxClose');
+
+    document.querySelectorAll('.gallery-card[data-src]').forEach(card => {
+      card.addEventListener('click', () => {
+        const src = card.dataset.src;
+        const caption = card.dataset.caption || '';
+        lightboxImg.src = src;
+        lightboxImg.alt = caption;
+        lightbox.classList.add('open');
+        document.body.style.overflow = 'hidden';
+      });
+    });
+
+    lightboxClose.addEventListener('click', closeLightbox);
+    lightbox.addEventListener('click', e => { if (e.target === lightbox) closeLightbox(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+
+    function closeLightbox() {
+      lightbox.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    // ── Music: double-click to open ────────────────────────
+    document.querySelectorAll('.music-item').forEach(item => {
+      let clickTimeout = null;
+      item.addEventListener('click', () => {
+        item.classList.add('bounce');
+        setTimeout(() => item.classList.remove('bounce'), 350);
+        if (clickTimeout === null) {
+          clickTimeout = setTimeout(() => { clickTimeout = null; }, 300);
+        } else {
+          clearTimeout(clickTimeout);
+          clickTimeout = null;
+          const url = item.dataset.url;
+          if (url) window.open(url, '_blank');
+        }
+      });
+      item.addEventListener('dblclick', () => {
+        const url = item.dataset.url;
+        if (url) window.open(url, '_blank');
+      });
+    });
+  </script>
 </body>
 </html>

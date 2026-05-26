@@ -1,38 +1,128 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Enter Passcode</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Enter Passcode — My Love 💗</title>
+  <meta name="description" content="A secret romantic website just for us.">
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="container passcode-container">
-        <h1 class="passcode-heading">Enter Passcode</h1>
-        <div class="passcode-dots" id="passcodeDots">
-            <div class="dot"></div>
-            <div class="dot"></div>
-            <div class="dot"></div>
-            <div class="dot"></div>
-        </div>
-        <p class="passcode-message" id="passcodeMessage"></p>
-        <div class="numpad">
-            <button class="num-button" data-value="1">1</button>
-            <button class="num-button" data-value="2">2</button>
-            <button class="num-button" data-value="3">3</button>
-            <button class="num-button" data-value="4">4</button>
-            <button class="num-button" data-value="5">5</button>
-            <button class="num-button" data-value="6">6</button>
-            <button class="num-button" data-value="7">7</button>
-            <button class="num-button" data-value="8">8</button>
-            <button class="num-button" data-value="9">9</button>
-            <div class="empty-cell"></div>
-            <button class="num-button" data-value="0">0</button>
-            <button class="num-button cancel-button" data-value="cancel">Cancel</button>
-        </div>
+
+  <!-- Loading Screen -->
+  <div class="loading-screen" id="loadingScreen" aria-hidden="true">
+    <div class="loading-logo">💗</div>
+    <div class="loading-bar"><div class="loading-bar-fill"></div></div>
+  </div>
+
+  <!-- Animated background blobs -->
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="blob blob-3"></div>
+
+  <!-- Floating particles -->
+  <div class="particles-container" id="particles"></div>
+
+  <!-- Custom cursor -->
+  <div class="cursor-dot" id="cursorDot"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+
+  <!-- Main content -->
+  <main class="container passcode-container" id="mainContainer">
+
+    <!-- Badge -->
+    <div class="badge">
+      <span class="badge-dot"></span>
+      Private Access
     </div>
 
-    <script src="script.js"></script>
+    <h1 class="glow-title">Enter Passcode</h1>
+    <p class="subtitle">Only for my special person 💕</p>
+
+    <!-- Dots -->
+    <div class="passcode-dots" id="passcodeDots" role="group" aria-label="Passcode entry dots">
+      <div class="dot" aria-hidden="true"></div>
+      <div class="dot" aria-hidden="true"></div>
+      <div class="dot" aria-hidden="true"></div>
+      <div class="dot" aria-hidden="true"></div>
+    </div>
+
+    <!-- Message -->
+    <p class="passcode-message" id="passcodeMessage" role="alert" aria-live="polite"></p>
+
+    <div class="divider"></div>
+
+    <!-- Numpad -->
+    <div class="numpad" id="numpad" role="group" aria-label="Number pad">
+      <button class="num-button" data-value="1" aria-label="1">1</button>
+      <button class="num-button" data-value="2" aria-label="2">2</button>
+      <button class="num-button" data-value="3" aria-label="3">3</button>
+      <button class="num-button" data-value="4" aria-label="4">4</button>
+      <button class="num-button" data-value="5" aria-label="5">5</button>
+      <button class="num-button" data-value="6" aria-label="6">6</button>
+      <button class="num-button" data-value="7" aria-label="7">7</button>
+      <button class="num-button" data-value="8" aria-label="8">8</button>
+      <button class="num-button" data-value="9" aria-label="9">9</button>
+      <div class="empty-cell" aria-hidden="true"></div>
+      <button class="num-button" data-value="0" aria-label="0">0</button>
+      <button class="num-button cancel-button" data-value="cancel" aria-label="Clear">✕</button>
+    </div>
+
+  </main>
+
+  <script src="script.js"></script>
+  <script>
+    // ── Custom Cursor ──────────────────────────────
+    const dot  = document.getElementById('cursorDot');
+    const ring = document.getElementById('cursorRing');
+    let mx = 0, my = 0, rx = 0, ry = 0;
+
+    document.addEventListener('mousemove', e => {
+      mx = e.clientX; my = e.clientY;
+      dot.style.left = mx + 'px';
+      dot.style.top  = my + 'px';
+    });
+
+    function animRing() {
+      rx += (mx - rx) * 0.12;
+      ry += (my - ry) * 0.12;
+      ring.style.left = rx + 'px';
+      ring.style.top  = ry + 'px';
+      requestAnimationFrame(animRing);
+    }
+    animRing();
+
+    document.querySelectorAll('button, a, .icon-button').forEach(el => {
+      el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
+      el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
+    });
+
+    // ── Floating Particles ─────────────────────────
+    const pContainer = document.getElementById('particles');
+    const symbols = ['💗','✨','🌸','💕','⭐','🌙','💖','🦋'];
+
+    function spawnParticle() {
+      const p = document.createElement('div');
+      p.className = 'particle';
+      p.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+      const size = 0.6 + Math.random() * 1;
+      p.style.cssText = `
+        left: ${Math.random() * 100}vw;
+        font-size: ${size}rem;
+        animation-duration: ${8 + Math.random() * 14}s;
+        animation-delay: ${Math.random() * 5}s;
+      `;
+      pContainer.appendChild(p);
+      setTimeout(() => p.remove(), 25000);
+    }
+
+    for (let i = 0; i < 12; i++) setTimeout(spawnParticle, i * 500);
+    setInterval(spawnParticle, 2800);
+
+    // ── Remove loading screen ──────────────────────
+    document.getElementById('mainContainer').classList.add('page-enter');
+  </script>
 </body>
 </html>
