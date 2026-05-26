@@ -22,8 +22,8 @@
   <div class="blob blob-2"></div>
   <div class="blob blob-3"></div>
 
-  <!-- Floating particles -->
-  <div class="particles-container" id="particles"></div>
+  <!-- Interactive 3D Hearts Background Canvas -->
+  <canvas id="heartsCanvas"></canvas>
 
   <!-- Custom cursor -->
   <div class="cursor-dot" id="cursorDot"></div>
@@ -31,6 +31,7 @@
 
   <!-- Main content -->
   <main class="container passcode-container" id="mainContainer">
+    <div class="glass-shine"></div>
 
     <!-- Badge -->
     <div class="badge">
@@ -98,28 +99,6 @@
       el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
       el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
     });
-
-    // ── Floating Particles ─────────────────────────
-    const pContainer = document.getElementById('particles');
-    const symbols = ['💗','✨','🌸','💕','⭐','🌙','💖','🦋'];
-
-    function spawnParticle() {
-      const p = document.createElement('div');
-      p.className = 'particle';
-      p.textContent = symbols[Math.floor(Math.random() * symbols.length)];
-      const size = 0.6 + Math.random() * 1;
-      p.style.cssText = `
-        left: ${Math.random() * 100}vw;
-        font-size: ${size}rem;
-        animation-duration: ${8 + Math.random() * 14}s;
-        animation-delay: ${Math.random() * 5}s;
-      `;
-      pContainer.appendChild(p);
-      setTimeout(() => p.remove(), 25000);
-    }
-
-    for (let i = 0; i < 12; i++) setTimeout(spawnParticle, i * 500);
-    setInterval(spawnParticle, 2800);
 
     // ── Remove loading screen ──────────────────────
     document.getElementById('mainContainer').classList.add('page-enter');

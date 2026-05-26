@@ -144,14 +144,15 @@
   <div class="blob blob-2"></div>
   <div class="blob blob-3"></div>
 
-  <!-- Particles -->
-  <div class="particles-container" id="particles"></div>
+  <!-- Interactive 3D Hearts Background Canvas -->
+  <canvas id="heartsCanvas"></canvas>
 
   <!-- Custom cursor -->
   <div class="cursor-dot" id="cursorDot"></div>
   <div class="cursor-ring" id="cursorRing"></div>
 
   <main class="container thankyou-container page-enter">
+    <div class="glass-shine"></div>
 
     <div class="badge">
       <span class="badge-dot"></span>
@@ -186,16 +187,19 @@
     <!-- Stats -->
     <div class="stats-row" id="statsRow">
       <div class="stat-block">
+        <div class="glass-shine"></div>
         <span class="stat-emoji">🌸</span>
         <span class="stat-value" id="statDays">—</span>
         <span class="stat-label">Days</span>
       </div>
       <div class="stat-block">
+        <div class="glass-shine"></div>
         <span class="stat-emoji">💌</span>
         <span class="stat-value" id="statMonths">—</span>
         <span class="stat-label">Months</span>
       </div>
       <div class="stat-block">
+        <div class="glass-shine"></div>
         <span class="stat-emoji">⭐</span>
         <span class="stat-value" id="statMemories">∞</span>
         <span class="stat-label">Memories</span>
@@ -230,21 +234,6 @@
       el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
       el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
     });
-
-    // ── Particles ──────────────────────────────────────────
-    const pContainer = document.getElementById('particles');
-    const symbols = ['💗','✨','🌸','💕','⭐','🌙','💖','💝','🦋'];
-    function spawnParticle() {
-      const p = document.createElement('div');
-      p.className = 'particle';
-      p.textContent = symbols[Math.floor(Math.random() * symbols.length)];
-      const size = 0.5 + Math.random() * 1.1;
-      p.style.cssText = `left:${Math.random()*100}vw;font-size:${size}rem;animation-duration:${9+Math.random()*14}s;animation-delay:${Math.random()*3}s;`;
-      pContainer.appendChild(p);
-      setTimeout(() => p.remove(), 28000);
-    }
-    for (let i = 0; i < 14; i++) setTimeout(spawnParticle, i * 400);
-    setInterval(spawnParticle, 2500);
 
     // ── Update stats ───────────────────────────────────────
     (function updateStats() {

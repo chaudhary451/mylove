@@ -208,14 +208,15 @@
   <div class="blob blob-2"></div>
   <div class="blob blob-3"></div>
 
-  <!-- Particles -->
-  <div class="particles-container" id="particles"></div>
+  <!-- Interactive 3D Hearts Background Canvas -->
+  <canvas id="heartsCanvas"></canvas>
 
   <!-- Custom cursor -->
   <div class="cursor-dot" id="cursorDot"></div>
   <div class="cursor-ring" id="cursorRing"></div>
 
   <main class="container message-container page-enter">
+    <div class="glass-shine"></div>
 
     <div class="badge">
       <span class="badge-dot"></span>
@@ -227,6 +228,7 @@
 
     <!-- Envelope trigger -->
     <div class="envelope-card" id="envelopeCard" onclick="openMessage()" role="button" tabindex="0" aria-label="Open love message" aria-expanded="false">
+      <div class="glass-shine"></div>
       <span class="envelope-seal">💌</span>
       <span class="envelope-emoji">💌</span>
       <p class="envelope-hint">Tap to open <span>your message</span></p>
@@ -235,6 +237,7 @@
     <!-- Message reveal -->
     <div class="message-reveal" id="messageReveal" aria-hidden="true">
       <div class="message-box" id="loveMessage">
+        <div class="glass-shine"></div>
         <button class="close-message-btn" onclick="closeMessage()" aria-label="Close message">&times;</button>
         <p class="message-text">
           Hi, I love you so much <span class="heart-emoji">💖</span><br><br>
@@ -276,21 +279,6 @@
       el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
     });
 
-    // ── Particles ──────────────────────────────────────────
-    const pContainer = document.getElementById('particles');
-    const symbols = ['💗','✨','🌸','💕','💌','🌙','💖'];
-    function spawnParticle() {
-      const p = document.createElement('div');
-      p.className = 'particle';
-      p.textContent = symbols[Math.floor(Math.random() * symbols.length)];
-      const size = 0.5 + Math.random() * 1;
-      p.style.cssText = `left:${Math.random()*100}vw;font-size:${size}rem;animation-duration:${9+Math.random()*14}s;animation-delay:${Math.random()*3}s;`;
-      pContainer.appendChild(p);
-      setTimeout(() => p.remove(), 28000);
-    }
-    for (let i = 0; i < 12; i++) setTimeout(spawnParticle, i * 500);
-    setInterval(spawnParticle, 2800);
-
     // ── Envelope keyboard support ──────────────────────────
     document.getElementById('envelopeCard').addEventListener('keydown', e => {
       if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openMessage(); }
@@ -305,15 +293,15 @@
       reveal.classList.add('visible');
       reveal.setAttribute('aria-hidden', 'false');
 
-      // Extra sparkle burst
+      // Extra sparkle burst (appended to document.body)
       for (let i = 0; i < 8; i++) {
         setTimeout(() => {
           const s = document.createElement('div');
           s.className = 'particle';
           s.textContent = ['✨','💗','🌸','💖'][Math.floor(Math.random()*4)];
-          s.style.cssText = `left:${30+Math.random()*40}vw;font-size:${0.8+Math.random()*0.8}rem;animation-duration:${3+Math.random()*3}s;animation-delay:0s;`;
-          pContainer.appendChild(s);
-          setTimeout(() => s.remove(), 7000);
+          s.style.cssText = `position:fixed;top:50vh;left:${30+Math.random()*40}vw;font-size:${0.8+Math.random()*0.8}rem;animation-duration:${3+Math.random()*3}s;z-index:9999;pointer-events:none;`;
+          document.body.appendChild(s);
+          setTimeout(() => s.remove(), 4000);
         }, i * 80);
       }
     }

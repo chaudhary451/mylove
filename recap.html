@@ -216,8 +216,8 @@
   <div class="blob blob-2"></div>
   <div class="blob blob-3"></div>
 
-  <!-- Particles -->
-  <div class="particles-container" id="particles"></div>
+  <!-- Interactive 3D Hearts Background Canvas -->
+  <canvas id="heartsCanvas"></canvas>
 
   <!-- Custom cursor -->
   <div class="cursor-dot" id="cursorDot"></div>
@@ -230,6 +230,7 @@
   </div>
 
   <main class="container recap-container page-enter">
+    <div class="glass-shine"></div>
 
     <div class="badge">
       <span class="badge-dot"></span>
@@ -259,6 +260,7 @@
       <div class="gallery-grid">
 
         <div class="gallery-card" data-src="c:\Users\Chaud\OneDrive\Desktop\All webpage\Pic\Picture3.png" data-caption="September 3, 2024">
+          <div class="glass-shine"></div>
           <img src="c:\Users\Chaud\OneDrive\Desktop\All webpage\Pic\Picture3.png" alt="September 3, 2024"
                onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
           <div class="photo-placeholder" style="display:none;">📸<span>Sep 3, 2024</span></div>
@@ -268,6 +270,7 @@
         </div>
 
         <div class="gallery-card" data-src="c:\Users\Chaud\OneDrive\Desktop\All webpage\Pic\Picture2.png" data-caption="January 1, 2025">
+          <div class="glass-shine"></div>
           <img src="c:\Users\Chaud\OneDrive\Desktop\All webpage\Pic\Picture2.png" alt="January 1, 2025"
                onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
           <div class="photo-placeholder" style="display:none;">🌷<span>Jan 1, 2025</span></div>
@@ -277,6 +280,7 @@
         </div>
 
         <div class="gallery-card" data-src="c:\Users\Chaud\OneDrive\Desktop\All webpage\Pic\MessageImage2.png" data-caption="February 2025">
+          <div class="glass-shine"></div>
           <img src="c:\Users\Chaud\OneDrive\Desktop\All webpage\Pic\MessageImage2.png" alt="February 2025"
                onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
           <div class="photo-placeholder" style="display:none;">💖<span>Feb 2025</span></div>
@@ -293,6 +297,7 @@
       <div class="gallery-grid">
 
         <div class="gallery-card" data-src="c:\Users\Chaud\OneDrive\Desktop\All webpage\Pic\Picture1.png" data-caption="January 1, 2024">
+          <div class="glass-shine"></div>
           <img src="c:\Users\Chaud\OneDrive\Desktop\All webpage\Pic\Picture1.png" alt="January 1, 2024"
                onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
           <div class="photo-placeholder" style="display:none;">🎉<span>Jan 1, 2024</span></div>
@@ -321,7 +326,8 @@
       <div class="music-list">
 
         <div class="music-item" data-url="https://www.youtube.com/results?search_query=Heavenly+Cigarettes+After+Sex">
-          <div class="album-cover-placeholder">🎵</div>
+          <div class="glass-shine"></div>
+          <img src="music/1.png" alt="Heavenly" class="album-cover" onerror="this.outerHTML='<div class=\'album-cover-placeholder\'>🎵</div>'">
           <div class="song-details">
             <p class="song-title">Heavenly</p>
             <p class="song-artist">Cigarettes After Sex</p>
@@ -330,7 +336,8 @@
         </div>
 
         <div class="music-item" data-url="https://www.youtube.com/results?search_query=The+Boy+Is+Mine+Brandy+Monica">
-          <div class="album-cover-placeholder">🎶</div>
+          <div class="glass-shine"></div>
+          <img src="music/2.png" alt="The Boy Is Mine" class="album-cover" onerror="this.outerHTML='<div class=\'album-cover-placeholder\'>🎶</div>'">
           <div class="song-details">
             <p class="song-title">The Boy Is Mine</p>
             <p class="song-artist">Brandy, Monica</p>
@@ -339,7 +346,8 @@
         </div>
 
         <div class="music-item" data-url="https://www.youtube.com/results?search_query=Sunsetz+Cigarettes+After+Sex">
-          <div class="album-cover-placeholder">🌅</div>
+          <div class="glass-shine"></div>
+          <img src="music/3.png" alt="Sunsetz" class="album-cover" onerror="this.outerHTML='<div class=\'album-cover-placeholder\'>🌅</div>'">
           <div class="song-details">
             <p class="song-title">Sunsetz</p>
             <p class="song-artist">Cigarettes After Sex</p>
@@ -348,8 +356,8 @@
         </div>
 
         <div class="music-item" data-url="https://youtu.be/kPa7bsKwL-c?si=fVStLObdOTnqE8CC">
-          <img src="https://cdn.jsdelivr.net/gh/chaudhary451/mylove/music/3.png" alt="Die With A Smile" class="album-cover"
-               onerror="this.outerHTML='<div class=\'album-cover-placeholder\'>🌟</div>'">
+          <div class="glass-shine"></div>
+          <img src="music/4.png" alt="Die With A Smile" class="album-cover" onerror="this.outerHTML='<div class=\'album-cover-placeholder\'>🌟</div>'">
           <div class="song-details">
             <p class="song-title">Die With A Smile</p>
             <p class="song-artist">Lady Gaga, Bruno Mars</p>
@@ -358,7 +366,8 @@
         </div>
 
         <div class="music-item" data-url="https://www.youtube.com/results?search_query=Kiss+Me+Thru+The+Phone+Soulja+Boy">
-          <div class="album-cover-placeholder">📱</div>
+          <div class="glass-shine"></div>
+          <img src="music/5.png" alt="Kiss Me Thru The Phone" class="album-cover" onerror="this.outerHTML='<div class=\'album-cover-placeholder\'>📱</div>'">
           <div class="song-details">
             <p class="song-title">Kiss Me Thru The Phone</p>
             <p class="song-artist">Soulja Boy, Sammie</p>
@@ -367,7 +376,8 @@
         </div>
 
         <div class="music-item" data-url="https://www.youtube.com/results?search_query=American+Boy+Estelle+Kanye+West">
-          <div class="album-cover-placeholder">🇺🇸</div>
+          <div class="glass-shine"></div>
+          <img src="music/6.png" alt="American Boy" class="album-cover" onerror="this.outerHTML='<div class=\'album-cover-placeholder\'>🇺🇸</div>'">
           <div class="song-details">
             <p class="song-title">American Boy</p>
             <p class="song-artist">Estelle, Kanye West</p>
@@ -376,7 +386,8 @@
         </div>
 
         <div class="music-item" data-url="https://www.youtube.com/results?search_query=Last+Night+on+Earth+Green+Day">
-          <div class="album-cover-placeholder">🌙</div>
+          <div class="glass-shine"></div>
+          <img src="music/7.png" alt="Last Night on Earth" class="album-cover" onerror="this.outerHTML='<div class=\'album-cover-placeholder\'>🌙</div>'">
           <div class="song-details">
             <p class="song-title">Last Night on Earth</p>
             <p class="song-artist">Green Day</p>
@@ -385,7 +396,8 @@
         </div>
 
         <div class="music-item" data-url="https://www.youtube.com/results?search_query=Sparks+Coldplay">
-          <div class="album-cover-placeholder">✨</div>
+          <div class="glass-shine"></div>
+          <img src="music/8.png" alt="Sparks" class="album-cover" onerror="this.outerHTML='<div class=\'album-cover-placeholder\'>✨</div>'">
           <div class="song-details">
             <p class="song-title">Sparks</p>
             <p class="song-artist">Coldplay</p>
@@ -424,21 +436,6 @@
       el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
       el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
     });
-
-    // ── Particles ──────────────────────────────────────────
-    const pContainer = document.getElementById('particles');
-    const symbols = ['💗','✨','🌸','💕','⭐','🌙','💖','🦋'];
-    function spawnParticle() {
-      const p = document.createElement('div');
-      p.className = 'particle';
-      p.textContent = symbols[Math.floor(Math.random() * symbols.length)];
-      const size = 0.5 + Math.random() * 0.9;
-      p.style.cssText = `left:${Math.random()*100}vw;font-size:${size}rem;animation-duration:${9+Math.random()*14}s;animation-delay:${Math.random()*3}s;`;
-      pContainer.appendChild(p);
-      setTimeout(() => p.remove(), 28000);
-    }
-    for (let i = 0; i < 10; i++) setTimeout(spawnParticle, i * 600);
-    setInterval(spawnParticle, 3200);
 
     // ── Tab switching ──────────────────────────────────────
     document.querySelectorAll('.tab-btn').forEach(btn => {
