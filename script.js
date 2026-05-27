@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.body.style.opacity = '1';
     document.body.style.transform = 'scale(1)';
   });
-  
+
   // Initialize the 3D Glass Hearts engine if canvas exists
   initGlassHeartsEngine();
 });
@@ -41,7 +41,7 @@ function initGlassHeartsEngine() {
 
   // Handle high DPI screens for crisp rendering
   const dpr = window.devicePixelRatio || 1;
-  
+
   function resizeCanvas() {
     width = window.innerWidth;
     height = window.innerHeight;
@@ -51,7 +51,7 @@ function initGlassHeartsEngine() {
     canvas.style.height = height + 'px';
     ctx.scale(dpr, dpr);
   }
-  
+
   resizeCanvas();
   window.addEventListener('resize', resizeCanvas);
 
@@ -95,10 +95,10 @@ function initGlassHeartsEngine() {
 
   // Mobile Device Orientation (Gyroscope Parallax)
   let gyroPermissionGranted = false;
-  
+
   function requestGyroPermission() {
-    if (typeof DeviceOrientationEvent !== 'undefined' && 
-        typeof DeviceOrientationEvent.requestPermission === 'function') {
+    if (typeof DeviceOrientationEvent !== 'undefined' &&
+      typeof DeviceOrientationEvent.requestPermission === 'function') {
       DeviceOrientationEvent.requestPermission()
         .then(response => {
           if (response === 'granted') {
@@ -142,15 +142,15 @@ function initGlassHeartsEngine() {
       this.x = Math.random() * width;
       // Start below screen initially or disperse vertically if setup
       this.y = isInitial ? Math.random() * height : height + this.size + 40;
-      
+
       // Speed scales with depth for natural parallax speed
       this.speedY = -(0.35 + Math.random() * 0.45) * this.z;
       this.speedX = (Math.random() - 0.5) * 0.25 * this.z;
-      
+
       this.angle = (Math.random() - 0.5) * 0.3;
       this.spinSpeed = (Math.random() - 0.5) * 0.004 * this.z;
       this.opacity = Math.min(1.0, 0.2 + (this.z * 0.4)); // Far hearts are faint
-      
+
       // Physics forces
       this.vx = 0;
       this.vy = 0;
@@ -163,10 +163,10 @@ function initGlassHeartsEngine() {
         const dx = this.x - pointer.x;
         const dy = this.y - pointer.y;
         const distance = Math.hypot(dx, dy);
-        
+
         // Scale repulsion radius based on z depth layer
         const repulsionRadius = pointer.radius * (0.6 + this.z * 0.4);
-        
+
         if (distance < repulsionRadius) {
           const force = (repulsionRadius - distance) / repulsionRadius;
           // Apply outward acceleration
@@ -180,7 +180,7 @@ function initGlassHeartsEngine() {
       // Apply physics velocity
       this.x += this.speedX + this.vx;
       this.y += this.speedY + this.vy;
-      
+
       // Apply friction
       this.vx *= this.friction;
       this.vy *= this.friction;
@@ -427,7 +427,7 @@ if (
       passcodeDots.style.animation = 'none';
       void passcodeDots.offsetWidth; // Trigger reflow
       passcodeDots.style.animation = 'shake 0.45s cubic-bezier(0.36,0.07,0.19,0.97)';
-      
+
       passcodeDots.querySelectorAll('.dot').forEach(dot => {
         dot.style.borderColor = '#ff4f70';
         dot.style.boxShadow = '0 0 12px rgba(255, 79, 112, 0.4)';
@@ -481,19 +481,19 @@ if (
       pointer-events: none;
       animation: rippleAnim 0.5s cubic-bezier(0.1, 0.8, 0.3, 1) forwards;
     `;
-    
+
     // Position ripple relative to click inside button
     button.style.position = 'relative';
     button.style.overflow = 'hidden';
-    
+
     const rect = button.getBoundingClientRect();
     // Default to center if client x/y are not captured
     const left = rect.width / 2;
     const top = rect.height / 2;
-    
+
     ripple.style.left = left + 'px';
     ripple.style.top = top + 'px';
-    
+
     button.appendChild(ripple);
     setTimeout(() => ripple.remove(), 550);
   }
@@ -614,7 +614,7 @@ if (window.location.pathname.endsWith('message.html')) {
 (function initCardTiltEffect() {
   // Apply tilt to gallery cards and statistics cards
   const tiltCards = document.querySelectorAll('.gallery-card, .stat-block, .envelope-card, .message-box');
-  
+
   tiltCards.forEach(card => {
     // Skip placeholder cards
     if (card.querySelector('.photo-placeholder') && !card.querySelector('img')) return;
@@ -623,16 +623,16 @@ if (window.location.pathname.endsWith('message.html')) {
       const rect = card.getBoundingClientRect();
       const x = e.clientX - rect.left; // x position inside element
       const y = e.clientY - rect.top;  // y position inside element
-      
+
       const centerX = rect.width / 2;
       const centerY = rect.height / 2;
-      
+
       // Calculate rotation angles based on cursor offset (-10 to 10 degrees)
       const rotateX = ((centerY - y) / centerY) * 10;
       const rotateY = ((x - centerX) / centerX) * 10;
-      
+
       card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-4px) scale(1.02)`;
-      
+
       // Dynamic shine reflection overlay if styling supports it
       const shine = card.querySelector('.glass-shine');
       if (shine) {

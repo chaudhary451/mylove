@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,52 +8,70 @@
   <meta name="description" content="An intimate love message, just for you.">
   <link rel="stylesheet" href="style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
   <style>
-    .message-container { text-align: center; }
+    .message-container {
+      text-align: center;
+    }
 
     /* ── Envelope ─────────────────────── */
     .envelope-card {
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,79,163,0.2);
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 79, 163, 0.2);
       border-radius: 20px;
       padding: 32px 20px;
       margin: 8px 0 24px;
       cursor: pointer;
-      transition: all 0.35s cubic-bezier(0.4,0,0.2,1);
+      transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
       position: relative;
       overflow: hidden;
     }
+
     .envelope-card::before {
       content: '';
       position: absolute;
       inset: 0;
-      background: radial-gradient(ellipse at 50% 0%, rgba(255,79,163,0.08) 0%, transparent 65%);
+      background: radial-gradient(ellipse at 50% 0%, rgba(255, 79, 163, 0.08) 0%, transparent 65%);
       opacity: 0;
       transition: opacity 0.3s ease;
     }
+
     .envelope-card:hover {
-      border-color: rgba(255,79,163,0.45);
-      background: rgba(255,79,163,0.06);
+      border-color: rgba(255, 79, 163, 0.45);
+      background: rgba(255, 79, 163, 0.06);
       transform: translateY(-4px);
-      box-shadow: 0 16px 48px rgba(255,79,163,0.2);
+      box-shadow: 0 16px 48px rgba(255, 79, 163, 0.2);
     }
-    .envelope-card:hover::before { opacity: 1; }
+
+    .envelope-card:hover::before {
+      opacity: 1;
+    }
 
     .envelope-emoji {
       font-size: 4rem;
       display: block;
       margin: 0 0 12px;
       animation: floatEnvelope 3.2s ease-in-out infinite;
-      filter: drop-shadow(0 0 20px rgba(255,79,163,0.5));
+      filter: drop-shadow(0 0 20px rgba(255, 79, 163, 0.5));
     }
+
     @keyframes floatEnvelope {
-      0%, 100% { transform: translateY(0) rotate(-3deg); }
-      50%       { transform: translateY(-12px) rotate(3deg); }
+
+      0%,
+      100% {
+        transform: translateY(0) rotate(-3deg);
+      }
+
+      50% {
+        transform: translateY(-12px) rotate(3deg);
+      }
     }
+
     .envelope-card:hover .envelope-emoji {
       animation-play-state: paused;
-      filter: drop-shadow(0 0 32px rgba(255,79,163,0.9));
+      filter: drop-shadow(0 0 32px rgba(255, 79, 163, 0.9));
     }
 
     .envelope-hint {
@@ -63,55 +82,81 @@
       font-weight: 500;
       margin: 0;
     }
+
     .envelope-hint span {
-      color: rgba(255,133,194,0.6);
+      color: rgba(255, 133, 194, 0.6);
     }
 
     /* ── Seal dot ─────────────────────── */
     .envelope-seal {
-      width: 40px; height: 40px;
+      width: 40px;
+      height: 40px;
       background: linear-gradient(135deg, var(--pink-primary), #c9007a);
       border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       margin: 0 auto 4px;
       font-size: 1rem;
-      box-shadow: 0 0 16px rgba(255,79,163,0.5);
+      box-shadow: 0 0 16px rgba(255, 79, 163, 0.5);
       animation: sealPulse 2.5s ease-in-out infinite;
     }
+
     @keyframes sealPulse {
-      0%, 100% { box-shadow: 0 0 16px rgba(255,79,163,0.5); }
-      50%       { box-shadow: 0 0 32px rgba(255,79,163,0.8), 0 0 60px rgba(255,79,163,0.3); }
+
+      0%,
+      100% {
+        box-shadow: 0 0 16px rgba(255, 79, 163, 0.5);
+      }
+
+      50% {
+        box-shadow: 0 0 32px rgba(255, 79, 163, 0.8), 0 0 60px rgba(255, 79, 163, 0.3);
+      }
     }
 
     /* ── Message reveal card ────────────── */
     .message-reveal {
       display: none;
-      animation: messageReveal 0.6s cubic-bezier(0.22,1,0.36,1) both;
+      animation: messageReveal 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
     }
-    .message-reveal.visible { display: block; }
+
+    .message-reveal.visible {
+      display: block;
+    }
 
     @keyframes messageReveal {
-      0%   { opacity: 0; transform: scale(0.88) translateY(20px); }
-      60%  { transform: scale(1.02) translateY(-4px); }
-      100% { opacity: 1; transform: scale(1) translateY(0); }
+      0% {
+        opacity: 0;
+        transform: scale(0.88) translateY(20px);
+      }
+
+      60% {
+        transform: scale(1.02) translateY(-4px);
+      }
+
+      100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
     }
 
     .message-box {
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,79,163,0.25);
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 79, 163, 0.25);
       border-radius: 24px;
       padding: 40px 28px;
       position: relative;
       overflow: hidden;
       text-align: center;
     }
+
     .message-box::before {
       content: '';
       position: absolute;
       inset: 0;
       background:
-        radial-gradient(ellipse at 30% 0%, rgba(255,79,163,0.1) 0%, transparent 50%),
-        radial-gradient(ellipse at 70% 100%, rgba(180,30,120,0.08) 0%, transparent 50%);
+        radial-gradient(ellipse at 30% 0%, rgba(255, 79, 163, 0.1) 0%, transparent 50%),
+        radial-gradient(ellipse at 70% 100%, rgba(180, 30, 120, 0.08) 0%, transparent 50%);
       pointer-events: none;
     }
 
@@ -119,9 +164,10 @@
     .message-box::after {
       content: '\201C';
       position: absolute;
-      top: -10px; left: 20px;
+      top: -10px;
+      left: 20px;
       font-size: 8rem;
-      color: rgba(255,79,163,0.06);
+      color: rgba(255, 79, 163, 0.06);
       font-family: Georgia, serif;
       line-height: 1;
       pointer-events: none;
@@ -150,6 +196,7 @@
       position: relative;
       z-index: 1;
     }
+
     .message-signature strong {
       color: var(--pink-secondary);
       font-style: normal;
@@ -157,21 +204,26 @@
 
     .close-message-btn {
       position: absolute;
-      top: 14px; right: 16px;
-      width: 28px; height: 28px;
+      top: 14px;
+      right: 16px;
+      width: 28px;
+      height: 28px;
       border-radius: 50%;
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.1);
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.1);
       color: var(--text-muted);
       font-size: 1rem;
-      display: flex; align-items: center; justify-content: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       cursor: pointer;
       transition: all 0.25s ease;
       z-index: 2;
     }
+
     .close-message-btn:hover {
-      background: rgba(255,79,163,0.15);
-      border-color: rgba(255,79,163,0.3);
+      background: rgba(255, 79, 163, 0.15);
+      border-color: rgba(255, 79, 163, 0.3);
       color: var(--pink-primary);
     }
 
@@ -183,24 +235,55 @@
       margin: 16px 0 0;
       font-size: 1.2rem;
     }
+
     .hearts-row span {
       animation: heartPop 0.6s ease both, heartFloat 2.5s ease-in-out infinite;
       display: inline-block;
     }
-    .hearts-row span:nth-child(1) { animation-delay: 0.05s, 0s; }
-    .hearts-row span:nth-child(2) { animation-delay: 0.15s, 0.3s; }
-    .hearts-row span:nth-child(3) { animation-delay: 0.25s, 0.6s; }
-    @keyframes heartPop {
-      0%   { transform: scale(0); opacity: 0; }
-      70%  { transform: scale(1.25); opacity: 1; }
-      100% { transform: scale(1); opacity: 1; }
+
+    .hearts-row span:nth-child(1) {
+      animation-delay: 0.05s, 0s;
     }
+
+    .hearts-row span:nth-child(2) {
+      animation-delay: 0.15s, 0.3s;
+    }
+
+    .hearts-row span:nth-child(3) {
+      animation-delay: 0.25s, 0.6s;
+    }
+
+    @keyframes heartPop {
+      0% {
+        transform: scale(0);
+        opacity: 0;
+      }
+
+      70% {
+        transform: scale(1.25);
+        opacity: 1;
+      }
+
+      100% {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
     @keyframes heartFloat {
-      0%, 100% { transform: translateY(0); }
-      50%       { transform: translateY(-5px); }
+
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-5px);
+      }
     }
   </style>
 </head>
+
 <body>
 
   <!-- Blobs -->
@@ -227,7 +310,8 @@
     <p class="subtitle">Something I wanted you to know</p>
 
     <!-- Envelope trigger -->
-    <div class="envelope-card" id="envelopeCard" onclick="openMessage()" role="button" tabindex="0" aria-label="Open love message" aria-expanded="false">
+    <div class="envelope-card" id="envelopeCard" onclick="openMessage()" role="button" tabindex="0"
+      aria-label="Open love message" aria-expanded="false">
       <div class="glass-shine"></div>
       <span class="envelope-seal">💌</span>
       <span class="envelope-emoji">💌</span>
@@ -241,7 +325,8 @@
         <button class="close-message-btn" onclick="closeMessage()" aria-label="Close message">&times;</button>
         <p class="message-text">
           Hi, I love you so much <span class="heart-emoji">💖</span><br><br>
-          You are the <em>best thing</em> that has ever happened to me. Every moment with you feels like magic, and I never want it to end. <span class="heart-emoji">🌸</span>
+          You are the <em>best thing</em> that has ever happened to me. Every moment with you feels like magic, and I
+          never want it to end. <span class="heart-emoji">🌸</span>
         </p>
         <p class="message-signature">— with all my heart, <strong>yours always</strong> 💗</p>
       </div>
@@ -262,7 +347,7 @@
   <script src="script.js"></script>
   <script>
     // ── Custom cursor ──────────────────────────────────────
-    const dot  = document.getElementById('cursorDot');
+    const dot = document.getElementById('cursorDot');
     const ring = document.getElementById('cursorRing');
     let mx = 0, my = 0, rx = 0, ry = 0;
     document.addEventListener('mousemove', e => {
@@ -286,8 +371,8 @@
 
     // ── Open / close message ───────────────────────────────
     function openMessage() {
-      const card    = document.getElementById('envelopeCard');
-      const reveal  = document.getElementById('messageReveal');
+      const card = document.getElementById('envelopeCard');
+      const reveal = document.getElementById('messageReveal');
 
       card.style.display = 'none';
       reveal.classList.add('visible');
@@ -298,8 +383,8 @@
         setTimeout(() => {
           const s = document.createElement('div');
           s.className = 'particle';
-          s.textContent = ['✨','💗','🌸','💖'][Math.floor(Math.random()*4)];
-          s.style.cssText = `position:fixed;top:50vh;left:${30+Math.random()*40}vw;font-size:${0.8+Math.random()*0.8}rem;animation-duration:${3+Math.random()*3}s;z-index:9999;pointer-events:none;`;
+          s.textContent = ['✨', '💗', '🌸', '💖'][Math.floor(Math.random() * 4)];
+          s.style.cssText = `position:fixed;top:50vh;left:${30 + Math.random() * 40}vw;font-size:${0.8 + Math.random() * 0.8}rem;animation-duration:${3 + Math.random() * 3}s;z-index:9999;pointer-events:none;`;
           document.body.appendChild(s);
           setTimeout(() => s.remove(), 4000);
         }, i * 80);
@@ -307,7 +392,7 @@
     }
 
     function closeMessage() {
-      const card   = document.getElementById('envelopeCard');
+      const card = document.getElementById('envelopeCard');
       const reveal = document.getElementById('messageReveal');
       reveal.classList.remove('visible');
       reveal.setAttribute('aria-hidden', 'true');
@@ -315,8 +400,9 @@
     }
 
     // expose globally for inline onclick in HTML
-    window.openMessage  = openMessage;
+    window.openMessage = openMessage;
     window.closeMessage = closeMessage;
   </script>
 </body>
+
 </html>

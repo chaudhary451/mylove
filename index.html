@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,14 +8,19 @@
   <meta name="description" content="A secret romantic website just for us.">
   <link rel="stylesheet" href="style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
 </head>
+
 <body>
 
   <!-- Loading Screen -->
   <div class="loading-screen" id="loadingScreen" aria-hidden="true">
     <div class="loading-logo">💗</div>
-    <div class="loading-bar"><div class="loading-bar-fill"></div></div>
+    <div class="loading-bar">
+      <div class="loading-bar-fill"></div>
+    </div>
   </div>
 
   <!-- Animated background blobs -->
@@ -76,21 +82,21 @@
   <script src="script.js"></script>
   <script>
     // ── Custom Cursor ──────────────────────────────
-    const dot  = document.getElementById('cursorDot');
+    const dot = document.getElementById('cursorDot');
     const ring = document.getElementById('cursorRing');
     let mx = 0, my = 0, rx = 0, ry = 0;
 
     document.addEventListener('mousemove', e => {
       mx = e.clientX; my = e.clientY;
       dot.style.left = mx + 'px';
-      dot.style.top  = my + 'px';
+      dot.style.top = my + 'px';
     });
 
     function animRing() {
       rx += (mx - rx) * 0.12;
       ry += (my - ry) * 0.12;
       ring.style.left = rx + 'px';
-      ring.style.top  = ry + 'px';
+      ring.style.top = ry + 'px';
       requestAnimationFrame(animRing);
     }
     animRing();
@@ -104,4 +110,5 @@
     document.getElementById('mainContainer').classList.add('page-enter');
   </script>
 </body>
+
 </html>
