@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,24 +8,45 @@
   <meta name="description" content="Counting every beautiful moment we've shared together.">
   <link rel="stylesheet" href="style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
   <style>
     /* Extra countdown-specific enhancements */
-    .countdown-container { text-align: center; }
+    .countdown-container {
+      text-align: center;
+    }
 
     .love-icon {
       font-size: 3.5rem;
       margin-bottom: 4px;
       display: block;
       animation: heartbeat 1.6s ease-in-out infinite;
-      filter: drop-shadow(0 0 20px rgba(255,79,163,0.7));
+      filter: drop-shadow(0 0 20px rgba(255, 79, 163, 0.7));
     }
+
     @keyframes heartbeat {
-      0%, 100% { transform: scale(1); }
-      14%  { transform: scale(1.18); }
-      28%  { transform: scale(1); }
-      42%  { transform: scale(1.12); }
-      56%  { transform: scale(1); }
+
+      0%,
+      100% {
+        transform: scale(1);
+      }
+
+      14% {
+        transform: scale(1.18);
+      }
+
+      28% {
+        transform: scale(1);
+      }
+
+      42% {
+        transform: scale(1.12);
+      }
+
+      56% {
+        transform: scale(1);
+      }
     }
 
     .milestone-row {
@@ -34,9 +56,10 @@
       margin: 24px 0 0;
       flex-wrap: wrap;
     }
+
     .milestone-pill {
-      background: rgba(255,79,163,0.1);
-      border: 1px solid rgba(255,79,163,0.25);
+      background: rgba(255, 79, 163, 0.1);
+      border: 1px solid rgba(255, 79, 163, 0.25);
       border-radius: 100px;
       padding: 6px 14px;
       font-size: 0.72rem;
@@ -45,14 +68,16 @@
       letter-spacing: 0.04em;
       transition: all 0.3s ease;
     }
+
     .milestone-pill:hover {
-      background: rgba(255,79,163,0.2);
-      border-color: rgba(255,79,163,0.5);
+      background: rgba(255, 79, 163, 0.2);
+      border-color: rgba(255, 79, 163, 0.5);
       transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(255,79,163,0.2);
+      box-shadow: 0 4px 12px rgba(255, 79, 163, 0.2);
     }
   </style>
 </head>
+
 <body>
 
   <!-- Blobs -->
@@ -127,7 +152,7 @@
   <script src="script.js"></script>
   <script>
     // ── Custom cursor ──────────────────────────────
-    const dot  = document.getElementById('cursorDot');
+    const dot = document.getElementById('cursorDot');
     const ring = document.getElementById('cursorRing');
     let mx = 0, my = 0, rx = 0, ry = 0;
     document.addEventListener('mousemove', e => {
@@ -146,14 +171,15 @@
       const now = new Date();
       const diff = now - startDate;
       if (diff < 0) return;
-      const totalDays  = Math.floor(diff / 86400000);
+      const totalDays = Math.floor(diff / 86400000);
       const totalHours = Math.floor(diff / 3600000);
-      const months     = Math.floor(totalDays / 30.44);
-      document.getElementById('pill-days').textContent   = `🌸 ${totalDays} days`;
+      const months = Math.floor(totalDays / 30.44);
+      document.getElementById('pill-days').textContent = `🌸 ${totalDays} days`;
       document.getElementById('pill-months').textContent = `💕 ${months} months`;
-      document.getElementById('pill-hours').textContent  = `⭐ ${totalHours.toLocaleString()} hours`;
+      document.getElementById('pill-hours').textContent = `⭐ ${totalHours.toLocaleString()} hours`;
     }
     updatePills();
   </script>
 </body>
+
 </html>
