@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,7 +8,9 @@
   <meta name="description" content="A beautiful recap of all our memories together.">
   <link rel="stylesheet" href="style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <style>
     .recap-container {
@@ -19,19 +22,20 @@
     .tab-nav {
       display: flex;
       gap: 8px;
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
       border-radius: 16px;
       padding: 6px;
       margin-bottom: 28px;
     }
+
     .tab-btn {
       flex: 1;
       padding: 10px 8px;
       border: none;
       border-radius: 10px;
       background: transparent;
-      color: rgba(255,255,255,0.45);
+      color: rgba(255, 255, 255, 0.45);
       font-family: 'Poppins', sans-serif;
       font-size: 0.78rem;
       font-weight: 600;
@@ -40,27 +44,35 @@
       flex-direction: column;
       align-items: center;
       gap: 4px;
-      transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       letter-spacing: 0.02em;
     }
-    .tab-btn i { font-size: 1.1rem; }
-    .tab-btn.active {
-      background: rgba(255,79,163,0.15);
-      color: var(--pink-soft);
-      border: 1px solid rgba(255,79,163,0.35);
-      box-shadow: 0 0 20px rgba(255,79,163,0.12);
+
+    .tab-btn i {
+      font-size: 1.1rem;
     }
+
+    .tab-btn.active {
+      background: rgba(255, 79, 163, 0.15);
+      color: var(--pink-soft);
+      border: 1px solid rgba(255, 79, 163, 0.35);
+      box-shadow: 0 0 20px rgba(255, 79, 163, 0.12);
+    }
+
     .tab-btn:hover:not(.active) {
-      background: rgba(255,255,255,0.06);
-      color: rgba(255,255,255,0.7);
+      background: rgba(255, 255, 255, 0.06);
+      color: rgba(255, 255, 255, 0.7);
     }
 
     /* ── Panel ──────────────────────────── */
     .tab-panel {
       display: none;
-      animation: fadeUp 0.45s cubic-bezier(0.22,1,0.36,1) both;
+      animation: fadeUp 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
     }
-    .tab-panel.active { display: block; }
+
+    .tab-panel.active {
+      display: block;
+    }
 
     /* ── Gallery ───────────────────────── */
     .gallery-grid {
@@ -68,73 +80,89 @@
       grid-template-columns: 1fr 1fr;
       gap: 12px;
     }
+
     .gallery-card {
       border-radius: 16px;
       overflow: hidden;
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
       position: relative;
       cursor: pointer;
       transition: all 0.3s ease;
       aspect-ratio: 3/4;
     }
+
     .gallery-card:first-child {
       grid-column: span 2;
       aspect-ratio: 16/9;
     }
+
     .gallery-card img {
-      width: 100%; height: 100%;
+      width: 100%;
+      height: 100%;
       object-fit: cover;
       display: block;
       transition: transform 0.5s ease;
     }
-    .gallery-card:hover img { transform: scale(1.06); }
+
+    .gallery-card:hover img {
+      transform: scale(1.06);
+    }
+
     .gallery-card:hover {
-      border-color: rgba(255,79,163,0.4);
-      box-shadow: 0 8px 32px rgba(255,79,163,0.2);
+      border-color: rgba(255, 79, 163, 0.4);
+      box-shadow: 0 8px 32px rgba(255, 79, 163, 0.2);
       transform: translateY(-2px);
     }
+
     .gallery-overlay {
       position: absolute;
       inset: 0;
-      background: linear-gradient(to top, rgba(15,5,29,0.85) 0%, transparent 50%);
+      background: linear-gradient(to top, rgba(15, 5, 29, 0.85) 0%, transparent 50%);
       display: flex;
       align-items: flex-end;
       padding: 14px;
       opacity: 0;
       transition: opacity 0.3s ease;
     }
-    .gallery-card:hover .gallery-overlay { opacity: 1; }
+
+    .gallery-card:hover .gallery-overlay {
+      opacity: 1;
+    }
+
     .gallery-overlay-text h3 {
       font-size: 0.82rem;
       font-weight: 600;
       color: var(--pink-soft);
       margin: 0 0 2px;
     }
+
     .gallery-overlay-text p {
       font-size: 0.7rem;
-      color: rgba(255,255,255,0.6);
+      color: rgba(255, 255, 255, 0.6);
       margin: 0;
     }
 
     /* Photo placeholder when image missing */
     .photo-placeholder {
-      width: 100%; height: 100%;
+      width: 100%;
+      height: 100%;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       gap: 8px;
-      background: linear-gradient(135deg, rgba(255,79,163,0.12), rgba(180,30,120,0.18));
-      color: rgba(255,255,255,0.4);
+      background: linear-gradient(135deg, rgba(255, 79, 163, 0.12), rgba(180, 30, 120, 0.18));
+      color: rgba(255, 255, 255, 0.4);
       font-size: 2rem;
     }
+
     .photo-placeholder span {
       font-size: 0.7rem;
       font-family: 'Poppins', sans-serif;
       letter-spacing: 0.06em;
       text-transform: uppercase;
-      color: rgba(255,255,255,0.25);
+      color: rgba(255, 255, 255, 0.25);
     }
 
     /* ── Music ──────────────────────────── */
@@ -144,13 +172,14 @@
       justify-content: space-between;
       margin-bottom: 16px;
     }
+
     .music-count {
       font-size: 0.72rem;
       color: var(--text-muted);
-      background: rgba(255,255,255,0.05);
+      background: rgba(255, 255, 255, 0.05);
       border-radius: 100px;
       padding: 4px 10px;
-      border: 1px solid rgba(255,255,255,0.08);
+      border: 1px solid rgba(255, 255, 255, 0.08);
     }
 
     /* ── Back button ────────────────────── */
@@ -170,13 +199,16 @@
       transition: color 0.25s ease;
       letter-spacing: 0.02em;
     }
-    .section-back:hover { color: var(--pink-soft); }
+
+    .section-back:hover {
+      color: var(--pink-soft);
+    }
 
     /* ── Lightbox ───────────────────────── */
     .lightbox {
       position: fixed;
       inset: 0;
-      background: rgba(10,3,18,0.92);
+      background: rgba(10, 3, 18, 0.92);
       backdrop-filter: blur(20px);
       z-index: 1000;
       display: none;
@@ -184,31 +216,50 @@
       justify-content: center;
       animation: fadeIn 0.3s ease;
     }
-    .lightbox.open { display: flex; }
+
+    .lightbox.open {
+      display: flex;
+    }
+
     .lightbox-img {
       max-width: 90vw;
       max-height: 85vh;
       border-radius: 16px;
-      box-shadow: 0 24px 80px rgba(0,0,0,0.6), 0 0 40px rgba(255,79,163,0.2);
-      animation: scaleIn 0.35s cubic-bezier(0.22,1,0.36,1);
+      box-shadow: 0 24px 80px rgba(0, 0, 0, 0.6), 0 0 40px rgba(255, 79, 163, 0.2);
+      animation: scaleIn 0.35s cubic-bezier(0.22, 1, 0.36, 1);
     }
+
     @keyframes scaleIn {
-      from { transform: scale(0.85); opacity: 0; }
-      to   { transform: scale(1); opacity: 1; }
+      from {
+        transform: scale(0.85);
+        opacity: 0;
+      }
+
+      to {
+        transform: scale(1);
+        opacity: 1;
+      }
     }
+
     .lightbox-close {
       position: absolute;
-      top: 20px; right: 24px;
+      top: 20px;
+      right: 24px;
       font-size: 2rem;
-      color: rgba(255,255,255,0.5);
+      color: rgba(255, 255, 255, 0.5);
       cursor: pointer;
       transition: color 0.2s ease;
-      background: none; border: none;
+      background: none;
+      border: none;
       line-height: 1;
     }
-    .lightbox-close:hover { color: var(--pink-primary); }
+
+    .lightbox-close:hover {
+      color: var(--pink-primary);
+    }
   </style>
 </head>
+
 <body>
 
   <!-- Blobs -->
@@ -259,33 +310,45 @@
     <div class="tab-panel active" id="panel-best-pics" role="tabpanel" aria-labelledby="tab-best-pics">
       <div class="gallery-grid">
 
-        <div class="gallery-card" data-src="c:\Users\Chaud\OneDrive\Desktop\All webpage\Pic\Picture3.png" data-caption="September 3, 2024">
+        <div class="gallery-card" data-src="c:\Users\Chaud\OneDrive\Desktop\All webpage\Pic\Picture3.png"
+          data-caption="September 3, 2024">
           <div class="glass-shine"></div>
           <img src="c:\Users\Chaud\OneDrive\Desktop\All webpage\Pic\Picture3.png" alt="September 3, 2024"
-               onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
           <div class="photo-placeholder" style="display:none;">📸<span>Sep 3, 2024</span></div>
           <div class="gallery-overlay">
-            <div class="gallery-overlay-text"><h3>September 3, 2024</h3><p>A beautiful day to remember 🌸</p></div>
+            <div class="gallery-overlay-text">
+              <h3>September 3, 2024</h3>
+              <p>A beautiful day to remember 🌸</p>
+            </div>
           </div>
         </div>
 
-        <div class="gallery-card" data-src="c:\Users\Chaud\OneDrive\Desktop\All webpage\Pic\Picture2.png" data-caption="January 1, 2025">
+        <div class="gallery-card" data-src="c:\Users\Chaud\OneDrive\Desktop\All webpage\Pic\Picture2.png"
+          data-caption="January 1, 2025">
           <div class="glass-shine"></div>
           <img src="c:\Users\Chaud\OneDrive\Desktop\All webpage\Pic\Picture2.png" alt="January 1, 2025"
-               onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
           <div class="photo-placeholder" style="display:none;">🌷<span>Jan 1, 2025</span></div>
           <div class="gallery-overlay">
-            <div class="gallery-overlay-text"><h3>January 1, 2025</h3><p>A beautiful moment 💕</p></div>
+            <div class="gallery-overlay-text">
+              <h3>January 1, 2025</h3>
+              <p>A beautiful moment 💕</p>
+            </div>
           </div>
         </div>
 
-        <div class="gallery-card" data-src="c:\Users\Chaud\OneDrive\Desktop\All webpage\Pic\MessageImage2.png" data-caption="February 2025">
+        <div class="gallery-card" data-src="c:\Users\Chaud\OneDrive\Desktop\All webpage\Pic\MessageImage2.png"
+          data-caption="February 2025">
           <div class="glass-shine"></div>
           <img src="c:\Users\Chaud\OneDrive\Desktop\All webpage\Pic\MessageImage2.png" alt="February 2025"
-               onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
           <div class="photo-placeholder" style="display:none;">💖<span>Feb 2025</span></div>
           <div class="gallery-overlay">
-            <div class="gallery-overlay-text"><h3>February 2025</h3><p>My moment ✨</p></div>
+            <div class="gallery-overlay-text">
+              <h3>February 2025</h3>
+              <p>My moment ✨</p>
+            </div>
           </div>
         </div>
 
@@ -296,13 +359,17 @@
     <div class="tab-panel" id="panel-our-pics" role="tabpanel" aria-labelledby="tab-our-pics">
       <div class="gallery-grid">
 
-        <div class="gallery-card" data-src="c:\Users\Chaud\OneDrive\Desktop\All webpage\Pic\Picture1.png" data-caption="January 1, 2024">
+        <div class="gallery-card" data-src="c:\Users\Chaud\OneDrive\Desktop\All webpage\Pic\Picture1.png"
+          data-caption="January 1, 2024">
           <div class="glass-shine"></div>
           <img src="c:\Users\Chaud\OneDrive\Desktop\All webpage\Pic\Picture1.png" alt="January 1, 2024"
-               onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
           <div class="photo-placeholder" style="display:none;">🎉<span>Jan 1, 2024</span></div>
           <div class="gallery-overlay">
-            <div class="gallery-overlay-text"><h3>January 1, 2024</h3><p>New Year's Celebration 🎉🥳</p></div>
+            <div class="gallery-overlay-text">
+              <h3>January 1, 2024</h3>
+              <p>New Year's Celebration 🎉🥳</p>
+            </div>
           </div>
         </div>
 
@@ -320,14 +387,16 @@
     <!-- ─── Panel: Music ────────────────────── -->
     <div class="tab-panel" id="panel-music" role="tabpanel" aria-labelledby="tab-music">
       <div class="music-header">
-        <span style="font-size:0.85rem;color:var(--text-secondary);font-weight:500;">Double tap to open on YouTube</span>
+        <span style="font-size:0.85rem;color:var(--text-secondary);font-weight:500;">Double tap to open on
+          YouTube</span>
         <span class="music-count">8 songs</span>
       </div>
       <div class="music-list">
 
         <div class="music-item" data-url="https://www.youtube.com/results?search_query=Heavenly+Cigarettes+After+Sex">
           <div class="glass-shine"></div>
-          <img src="music/1.png" alt="Heavenly" class="album-cover" onerror="this.outerHTML='<div class=\'album-cover-placeholder\'>🎵</div>'">
+          <img src="music/1.png" alt="Heavenly" class="album-cover"
+            onerror="this.outerHTML='<div class=\'album-cover-placeholder\'>🎵</div>'">
           <div class="song-details">
             <p class="song-title">Heavenly</p>
             <p class="song-artist">Cigarettes After Sex</p>
@@ -337,7 +406,8 @@
 
         <div class="music-item" data-url="https://www.youtube.com/results?search_query=The+Boy+Is+Mine+Brandy+Monica">
           <div class="glass-shine"></div>
-          <img src="music/2.png" alt="The Boy Is Mine" class="album-cover" onerror="this.outerHTML='<div class=\'album-cover-placeholder\'>🎶</div>'">
+          <img src="music/2.png" alt="The Boy Is Mine" class="album-cover"
+            onerror="this.outerHTML='<div class=\'album-cover-placeholder\'>🎶</div>'">
           <div class="song-details">
             <p class="song-title">The Boy Is Mine</p>
             <p class="song-artist">Brandy, Monica</p>
@@ -347,7 +417,8 @@
 
         <div class="music-item" data-url="https://www.youtube.com/results?search_query=Sunsetz+Cigarettes+After+Sex">
           <div class="glass-shine"></div>
-          <img src="music/3.png" alt="Sunsetz" class="album-cover" onerror="this.outerHTML='<div class=\'album-cover-placeholder\'>🌅</div>'">
+          <img src="music/3.png" alt="Sunsetz" class="album-cover"
+            onerror="this.outerHTML='<div class=\'album-cover-placeholder\'>🌅</div>'">
           <div class="song-details">
             <p class="song-title">Sunsetz</p>
             <p class="song-artist">Cigarettes After Sex</p>
@@ -357,7 +428,8 @@
 
         <div class="music-item" data-url="https://youtu.be/kPa7bsKwL-c?si=fVStLObdOTnqE8CC">
           <div class="glass-shine"></div>
-          <img src="music/4.png" alt="Die With A Smile" class="album-cover" onerror="this.outerHTML='<div class=\'album-cover-placeholder\'>🌟</div>'">
+          <img src="music/4.png" alt="Die With A Smile" class="album-cover"
+            onerror="this.outerHTML='<div class=\'album-cover-placeholder\'>🌟</div>'">
           <div class="song-details">
             <p class="song-title">Die With A Smile</p>
             <p class="song-artist">Lady Gaga, Bruno Mars</p>
@@ -365,9 +437,11 @@
           <i class="fas fa-external-link-alt music-play-icon"></i>
         </div>
 
-        <div class="music-item" data-url="https://www.youtube.com/results?search_query=Kiss+Me+Thru+The+Phone+Soulja+Boy">
+        <div class="music-item"
+          data-url="https://www.youtube.com/results?search_query=Kiss+Me+Thru+The+Phone+Soulja+Boy">
           <div class="glass-shine"></div>
-          <img src="music/5.png" alt="Kiss Me Thru The Phone" class="album-cover" onerror="this.outerHTML='<div class=\'album-cover-placeholder\'>📱</div>'">
+          <img src="music/5.png" alt="Kiss Me Thru The Phone" class="album-cover"
+            onerror="this.outerHTML='<div class=\'album-cover-placeholder\'>📱</div>'">
           <div class="song-details">
             <p class="song-title">Kiss Me Thru The Phone</p>
             <p class="song-artist">Soulja Boy, Sammie</p>
@@ -377,7 +451,8 @@
 
         <div class="music-item" data-url="https://www.youtube.com/results?search_query=American+Boy+Estelle+Kanye+West">
           <div class="glass-shine"></div>
-          <img src="music/6.png" alt="American Boy" class="album-cover" onerror="this.outerHTML='<div class=\'album-cover-placeholder\'>🇺🇸</div>'">
+          <img src="music/6.png" alt="American Boy" class="album-cover"
+            onerror="this.outerHTML='<div class=\'album-cover-placeholder\'>🇺🇸</div>'">
           <div class="song-details">
             <p class="song-title">American Boy</p>
             <p class="song-artist">Estelle, Kanye West</p>
@@ -387,7 +462,8 @@
 
         <div class="music-item" data-url="https://www.youtube.com/results?search_query=Last+Night+on+Earth+Green+Day">
           <div class="glass-shine"></div>
-          <img src="music/7.png" alt="Last Night on Earth" class="album-cover" onerror="this.outerHTML='<div class=\'album-cover-placeholder\'>🌙</div>'">
+          <img src="music/7.png" alt="Last Night on Earth" class="album-cover"
+            onerror="this.outerHTML='<div class=\'album-cover-placeholder\'>🌙</div>'">
           <div class="song-details">
             <p class="song-title">Last Night on Earth</p>
             <p class="song-artist">Green Day</p>
@@ -397,7 +473,8 @@
 
         <div class="music-item" data-url="https://www.youtube.com/results?search_query=Sparks+Coldplay">
           <div class="glass-shine"></div>
-          <img src="music/8.png" alt="Sparks" class="album-cover" onerror="this.outerHTML='<div class=\'album-cover-placeholder\'>✨</div>'">
+          <img src="music/8.png" alt="Sparks" class="album-cover"
+            onerror="this.outerHTML='<div class=\'album-cover-placeholder\'>✨</div>'">
           <div class="song-details">
             <p class="song-title">Sparks</p>
             <p class="song-artist">Coldplay</p>
@@ -420,7 +497,7 @@
   <script src="script.js"></script>
   <script>
     // ── Custom cursor ──────────────────────────────────────
-    const dot  = document.getElementById('cursorDot');
+    const dot = document.getElementById('cursorDot');
     const ring = document.getElementById('cursorRing');
     let mx = 0, my = 0, rx = 0, ry = 0;
     document.addEventListener('mousemove', e => {
@@ -454,8 +531,8 @@
     });
 
     // ── Gallery lightbox ───────────────────────────────────
-    const lightbox     = document.getElementById('lightbox');
-    const lightboxImg  = document.getElementById('lightboxImg');
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightboxImg');
     const lightboxClose = document.getElementById('lightboxClose');
 
     document.querySelectorAll('.gallery-card[data-src]').forEach(card => {
@@ -500,4 +577,5 @@
     });
   </script>
 </body>
+
 </html>
